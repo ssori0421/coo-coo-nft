@@ -8,7 +8,7 @@ const Layout: FC = () => {
   const [signer, setSigner] = useState<JsonRpcSigner | null>(null);
 
   return (
-    <Flex mx='auto' minH='100vh' flexDir='column' bgColor='green.100'>
+    <Flex mx='auto' minH='100vh' flexDir='column'>
       <Header signer={signer} setSigner={setSigner} />
       <Flex flexGrow={1}>
         <Outlet />
