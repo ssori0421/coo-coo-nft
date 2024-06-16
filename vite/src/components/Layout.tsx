@@ -1,12 +1,18 @@
 import { Flex } from '@chakra-ui/react';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import Header from './Header';
+import { JsonRpcSigner } from 'ethers';
 
 const Layout: FC = () => {
+  const [signer, setSigner] = useState<JsonRpcSigner | null>(null);
+
   return (
-    <Flex>
-      Layout
-      <Outlet />
+    <Flex mx='auto' minH='100vh' flexDir='column' bgColor='green.100'>
+      <Header signer={signer} setSigner={setSigner} />
+      <Flex flexGrow={1}>
+        <Outlet />
+      </Flex>
     </Flex>
   );
 };
