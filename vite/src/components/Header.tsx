@@ -20,13 +20,13 @@ const navLinks = [
   },
   {
     id: 2,
-    name: '마켓 페이지',
-    path: '/nftmarket',
+    name: '쿠쿠 동산',
+    path: '/coocooGarden',
   },
   {
     id: 3,
-    name: '내 페이지',
-    path: '/mypage',
+    name: '마이 쿠쿠',
+    path: '/myCoocoo',
   },
 ];
 
@@ -61,11 +61,10 @@ const Header = ({ signer, setSigner }: IHeaderProps) => {
       p={8}
       justifyContent='space-between'
       alignItems='center'
-      bgColor='green.100'
-      border='2px solid'
-      borderBottom='1px solid'
+      borderBottom='2px solid'
       borderColor='white'
       boxShadow='md'
+      bgColor='#ff7e5f'
     >
       <Flex
         w={40}
@@ -82,12 +81,12 @@ const Header = ({ signer, setSigner }: IHeaderProps) => {
         {navLinks.map((item, id) => (
           <Button
             key={id}
-            color='black'
             colorScheme='gray'
             variant='ghost'
             fontWeight='semibold'
             fontSize={16}
             onClick={() => navigate(item.path)}
+            textColor='white'
           >
             {item.name}
           </Button>
@@ -97,8 +96,9 @@ const Header = ({ signer, setSigner }: IHeaderProps) => {
         {signer ? (
           <Menu>
             <MenuButton
-              colorScheme='green'
               as={Button}
+              color='white'
+              variant='outline'
               rightIcon={<ChevronDownIcon />}
             >
               {signer.address.substring(0, 7)}...
@@ -108,7 +108,11 @@ const Header = ({ signer, setSigner }: IHeaderProps) => {
             </MenuList>
           </Menu>
         ) : (
-          <Button colorScheme='green' onClick={onClickConnectMetamask}>
+          <Button
+            color='white'
+            variant='outline'
+            onClick={onClickConnectMetamask}
+          >
             지갑 연결하기
           </Button>
         )}
@@ -116,13 +120,14 @@ const Header = ({ signer, setSigner }: IHeaderProps) => {
       <Flex display={['flex', 'flex', 'none']}>
         <Menu>
           <MenuButton
-            colorScheme='green'
             as={Button}
+            color='white'
+            variant='outline'
             rightIcon={<ChevronDownIcon />}
           >
             {signer ? `${signer.address.substring(0, 7)}...` : 'menu'}
           </MenuButton>
-          <MenuList>
+          <MenuList border='1px, solid' borderColor='white'>
             {!signer && (
               <MenuItem onClick={onClickConnectMetamask}>
                 지갑 연결하기
