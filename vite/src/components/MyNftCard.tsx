@@ -20,7 +20,7 @@ interface INftCardProps {
   isApprovedForAll: boolean;
 }
 
-const NftCard = ({
+const MyNftCard = ({
   nftMetadata,
   tokenId,
   saleContract,
@@ -59,7 +59,12 @@ const NftCard = ({
   };
 
   return (
-    <Flex flexDirection='column' alignItems='center' justifyContent='center'>
+    <Flex
+      flexDirection='column'
+      alignItems='center'
+      justifyContent='center'
+      position='relative'
+    >
       <GridItem
         display='flex'
         flexDir='column'
@@ -75,11 +80,11 @@ const NftCard = ({
       >
         <Text
           textAlign='center'
-          fontSize={32}
+          fontSize={24}
           variant='link'
           fontFamily='DNFBitBitTTF'
           color='white'
-          mb={4}
+          mb={2}
         >
           {name}
         </Text>
@@ -113,11 +118,11 @@ const NftCard = ({
         </Flex>
         <Flex mt={4} justifyContent='center'>
           {currentPrice ? (
-            <Text color='white' fontSize={24} fontWeight='semibold'>
+            <Text color='white' fontSize={20} fontWeight='semibold'>
               판매가격 : {formatEther(currentPrice)} ETH
             </Text>
           ) : isApprovedForAll ? (
-            <>
+            <Flex position='absolute' bottom={4}>
               <InputGroup>
                 <Input
                   value={salePrice}
@@ -138,7 +143,7 @@ const NftCard = ({
               >
                 등록
               </Button>
-            </>
+            </Flex>
           ) : null}
         </Flex>
       </GridItem>
@@ -146,4 +151,4 @@ const NftCard = ({
   );
 };
 
-export default NftCard;
+export default MyNftCard;
