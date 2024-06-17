@@ -10,35 +10,31 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { Contract, parseEther, formatEther } from 'ethers';
-import { FC, useState, useEffect } from 'react';
+import { useState } from 'react';
+import useGetTokenPrice from '../hooks/useGetTokenPrice';
 
-interface NftCardProps {
+interface INftCardProps {
   nftMetadata: NftMetadata;
   tokenId: number;
   saleContract: Contract | null;
   isApprovedForAll: boolean;
 }
 
-const NftCard: FC<NftCardProps> = ({
+const NftCard = ({
   nftMetadata,
   tokenId,
   saleContract,
   isApprovedForAll,
-}) => {
+}: INftCardProps) => {
   const [salePrice, setSalePrice] = useState<string>('');
-  const [currentPrice, setCurrentPrice] = useState<bigint>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { image, name, description, attributes } = nftMetadata;
 
-  const getTokenPrice = async () => {
-    try {
-      const response = await saleContract?.getTokenPrice(tokenId);
-      setCurrentPrice(response);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { currentPrice, getTokenPrice } = useGetTokenPrice(
+    saleContract,
+    tokenId
+  );
 
   const onClickSetForSaleNft = async () => {
     try {
@@ -53,7 +49,7 @@ const NftCard: FC<NftCardProps> = ({
 
       await response.wait();
 
-      setCurrentPrice(parseEther(salePrice));
+      await getTokenPrice();
 
       setIsLoading(false);
     } catch (error) {
@@ -61,12 +57,6 @@ const NftCard: FC<NftCardProps> = ({
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (!saleContract || !tokenId) return;
-
-    getTokenPrice();
-  }, [saleContract, tokenId]);
 
   return (
     <Flex flexDirection='column' alignItems='center' justifyContent='center'>
