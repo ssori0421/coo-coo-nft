@@ -2,6 +2,7 @@ import { Box, Button, Flex, GridItem, Image, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import { Contract, formatEther, JsonRpcSigner } from 'ethers';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface IGardenNftCardProps {
   tokenId: number;
@@ -34,6 +35,8 @@ const GardenNftCard = ({
 }: IGardenNftCardProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [nftMetadata, setNftMetadata] = useState<ISaleNftMetadata>();
+
+  const navigate = useNavigate();
 
   const getNftMetadata = async () => {
     try {
@@ -75,6 +78,10 @@ const GardenNftCard = ({
     }
   };
 
+  const onClickCardDetail = (tokenId: number) => {
+    navigate(`/coocooGarden/${tokenId}`);
+  };
+
   useEffect(() => {
     if (!saleContract || !tokenId || !mintContract) return;
     getNftMetadata();
@@ -90,13 +97,14 @@ const GardenNftCard = ({
       <GridItem
         display='flex'
         flexDir='column'
-        border='3px,solid'
+        border='3px solid'
         borderColor='black'
         borderRadius='12px'
         bgColor='white'
         boxShadow='4px 4px 6px rgba(0, 0, 0, 0.6)'
         w={400}
         p={4}
+        onClick={() => onClickCardDetail(tokenId)} // tokenId를 넘겨줌
       >
         <Flex alignItems='center' justifyContent='space-between'>
           <Text
@@ -113,7 +121,10 @@ const GardenNftCard = ({
               <Button
                 ml={2}
                 colorScheme='pink'
-                onClick={onClickPurchaseNft}
+                onClick={(e) => {
+                  e.stopPropagation(); // 클릭 이벤트 전파 중지
+                  onClickPurchaseNft();
+                }}
                 isDisabled={isLoading || tokenOwner === signer?.address}
                 isLoading={isLoading}
                 loadingText='로딩중..'

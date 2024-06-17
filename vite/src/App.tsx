@@ -5,6 +5,7 @@ import HomePage from './pages/homePage';
 import WorldViewPage from './pages/worldViewPage';
 import CooCooGardenPage from './pages/coocooGardenPage';
 import MyCoocooPage from './pages/myCoocooPage';
+import DetailNftPage from './pages/detailNftPage';
 
 const App: FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: FC = () => {
           <Route path='/' element={<HomePage />} />
           <Route path='/coocooGarden' element={<CooCooGardenPage />} />
           <Route path='/worldview' element={<WorldViewPage />} />
+          <Route path='/coocooGarden/:tokenId' element={<DetailNftPage />} />
           <Route path='/mycoocoo' element={<MyCoocooPage />} />
         </Route>
       </Routes>
