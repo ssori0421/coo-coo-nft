@@ -15,11 +15,9 @@ import { Contract } from 'ethers';
 import {
   mintContractAddress,
   saleContractAddress,
-  saleContractAddress2,
 } from '../lib/contractAddress';
 import mintContractAbi from '../lib/mintContractAbi.json';
-// import saleContractAbi from '../lib/saleContractAbi.json';
-import saleContractAbi2 from '../lib/saleContractAbi2.json';
+import saleContractAbi from '../lib/saleContractAbi.json';
 
 const navLinks = [
   {
@@ -79,9 +77,7 @@ const Header = ({
     }
 
     setMintContract(new Contract(mintContractAddress, mintContractAbi, signer));
-    setSaleContract(
-      new Contract(saleContractAddress2, saleContractAbi2, signer)
-    );
+    setSaleContract(new Contract(saleContractAddress, saleContractAbi, signer));
   }, [signer]);
 
   return (
