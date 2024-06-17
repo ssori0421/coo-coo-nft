@@ -2,7 +2,7 @@ import { Box, Button, Flex, GridItem, Image, Text } from '@chakra-ui/react';
 import { formatEther, JsonRpcSigner } from 'ethers';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useNftMetadata from '../hooks/useNftMetadata';
+import useNftMetadatas from '../hooks/useNftMetadatas';
 
 interface IGardenNftCardProps {
   tokenId: number;
@@ -19,11 +19,10 @@ const GardenNftCard = ({
 }: IGardenNftCardProps) => {
   const navigate = useNavigate();
 
-  const { nftMetadata, isLoading, setIsLoading, saleContract } = useNftMetadata(
-    {
+  const { nftMetadata, isLoading, setIsLoading, saleContract } =
+    useNftMetadatas({
       tokenId,
-    }
-  );
+    });
 
   const onClickPurchaseNft = async (e: React.MouseEvent) => {
     e.stopPropagation(); // 클릭 이벤트 전파 중지

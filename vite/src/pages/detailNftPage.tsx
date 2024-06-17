@@ -1,12 +1,12 @@
 import { Flex, Box, Image, Text, Heading, Badge } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import useNftMetadata from '../hooks/useNftMetadata';
+import useNftMetadatas from '../hooks/useNftMetadatas';
 import { useEffect } from 'react';
 
 const DetailNftPage = () => {
   const { tokenId } = useParams<{ tokenId: string }>();
 
-  const { nftMetadata, isLoading } = useNftMetadata({
+  const { nftMetadata, isLoading } = useNftMetadatas({
     tokenId: Number(tokenId),
   });
 
