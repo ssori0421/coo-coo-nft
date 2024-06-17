@@ -1,62 +1,97 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Contract } from 'ethers';
-import { useOutletContext } from 'react-router-dom';
-import { JsonRpcSigner } from 'ethers';
 
-interface IUseNftMetadataProps {
-  tokenId: number;
+interface UseNftMetadataParams {
+  mintContract: any;
+  signer: any;
+  balanceOf: number;
+  PAGE: number;
 }
 
-interface INftMetadata {
+export interface NftMetadata {
   image: string;
   name: string;
   description: string;
-  attributes: { trait_type: string; value: string }[];
+  attributes?: Array<{
+    trait_type: string;
+    value: string;
+  }>;
 }
 
-interface ISaleNftMetadata extends INftMetadata {
-  price: any;
-  tokenOwner: string;
-}
+const useNftMetadata = ({
+  mintContract,
+  signer,
+  balanceOf,
+  PAGE,
+}: UseNftMetadataParams) => {
+  const [nftMetadataArray, setNftMetadataArray] = useState<NftMetadata[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [isEnd, setIsEnd] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [tokenIds, setTokenIds] = useState<number[]>([]);
 
-interface IOutletContext {
-  mintContract: Contract | null;
-  saleContract: Contract | null;
-  signer: JsonRpcSigner | null;
-}
+  const fetchNftMetadata = useCallback(
+    async (tokenOfOwnerByIndex: any) => {
+      const tokenURI = await mintContract?.tokenURI(
+        Number(tokenOfOwnerByIndex)
+      );
+      const { data } = await axios.get<NftMetadata>(tokenURI);
+      return { data, tokenId: Number(tokenOfOwnerByIndex) };
+    },
+    [mintContract]
+  );
 
-const useNftMetadata = ({ tokenId }: IUseNftMetadataProps) => {
-  const { mintContract, saleContract } = useOutletContext<IOutletContext>();
-  const [nftMetadata, setNftMetadata] = useState<ISaleNftMetadata | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  const getNftMetadata = async () => {
+  const getNftMetadata = useCallback(async () => {
     try {
-      if (!mintContract || !saleContract) return;
+      setIsLoading(true);
 
-      const tokenURI = await mintContract.tokenURI(tokenId);
-      const { data } = await axios.get<INftMetadata>(tokenURI);
-      const price = await saleContract.getTokenPrice(tokenId);
-      const tokenOwner = await mintContract.ownerOf(tokenId);
+      const address = await signer?.getAddress();
+      const newNfts = await Promise.all(
+        Array.from({ length: PAGE }).map(async (_, i) => {
+          const tokenIndex = i + currentPage * PAGE;
+          if (tokenIndex >= balanceOf) {
+            setIsEnd(true);
+            return null;
+          }
 
-      setNftMetadata({
-        ...data,
-        price,
-        tokenOwner,
-      });
-      setIsLoading(false);
+          const tokenOfOwnerByIndex = await mintContract?.tokenOfOwnerByIndex(
+            address,
+            tokenIndex
+          );
+          return fetchNftMetadata(tokenOfOwnerByIndex);
+        })
+      );
+
+      const validNfts = newNfts.filter((nft) => nft !== null) as {
+        data: NftMetadata;
+        tokenId: number;
+      }[];
+      setNftMetadataArray((prev) => [
+        ...prev,
+        ...validNfts.map((nft) => nft.data),
+      ]);
+      setTokenIds((prev) => [...prev, ...validNfts.map((nft) => nft.tokenId)]);
+      setCurrentPage((prev) => prev + 1);
     } catch (error) {
-      console.error(error);
+      console.error('Error fetching NFT metadata:', error);
+    } finally {
       setIsLoading(false);
     }
-  };
+  }, [balanceOf, currentPage, fetchNftMetadata, mintContract, PAGE, signer]);
 
   useEffect(() => {
-    getNftMetadata();
-  }, [mintContract, saleContract, tokenId]);
+    if (balanceOf > 0) {
+      getNftMetadata();
+    }
+  }, [balanceOf, getNftMetadata]);
 
-  return { nftMetadata, isLoading, setIsLoading, saleContract };
+  return {
+    nftMetadataArray,
+    tokenIds,
+    isEnd,
+    isLoading,
+    getNftMetadata,
+  };
 };
 
 export default useNftMetadata;
