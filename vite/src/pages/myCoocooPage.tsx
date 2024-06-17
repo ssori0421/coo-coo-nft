@@ -50,7 +50,6 @@ const MyCoocooPage = () => {
         <Flex
           alignItems='center'
           gap={4}
-          mb={6}
           p={4}
           borderRadius='24px'
           bg='white'
@@ -113,7 +112,7 @@ const MyCoocooPage = () => {
         </>
       ) : (
         <Text color='white' fontSize={24} fontWeight='semibold'>
-          지갑을 연결해주세요 :)
+          지갑을 연결해 주세요 :)
         </Text>
       )}
     </Flex>

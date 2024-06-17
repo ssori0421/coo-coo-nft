@@ -51,7 +51,7 @@ const GardenNftCard = ({
     navigate(`/coocooGarden/${tokenId}`);
   };
 
-  if (isLoading || !nftMetadata) return <Text>Loading...</Text>;
+  if (!nftMetadata) return null;
 
   const { image, name, description, attributes, price, tokenOwner } =
     nftMetadata;
