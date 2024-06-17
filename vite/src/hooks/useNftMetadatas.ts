@@ -4,7 +4,7 @@ import { Contract } from 'ethers';
 import { useOutletContext } from 'react-router-dom';
 import { JsonRpcSigner } from 'ethers';
 
-interface IuseNftMetadatasProps {
+interface IUseNftMetadatasProps {
   tokenId: number;
 }
 
@@ -26,7 +26,7 @@ interface IOutletContext {
   signer: JsonRpcSigner | null;
 }
 
-const useNftMetadatas = ({ tokenId }: IuseNftMetadatasProps) => {
+const useNftMetadatas = ({ tokenId }: IUseNftMetadatasProps) => {
   const { mintContract, saleContract } = useOutletContext<IOutletContext>();
   const [nftMetadata, setNftMetadata] = useState<ISaleNftMetadata | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
