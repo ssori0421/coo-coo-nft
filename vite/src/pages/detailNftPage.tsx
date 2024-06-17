@@ -14,7 +14,20 @@ const DetailNftPage = () => {
     console.log(nftMetadata, isLoading);
   }, [nftMetadata, isLoading]);
 
-  if (isLoading || !nftMetadata) return <Text>Loading...</Text>;
+  if (isLoading || !nftMetadata) {
+    return (
+      <Flex
+        flexDirection='column'
+        alignItems='center'
+        justifyContent='center'
+        w='100%'
+        minH='100vh'
+        background='linear-gradient(to bottom, #f1856a, #ce48c1)'
+      >
+        <Text>Loading...</Text>
+      </Flex>
+    );
+  }
 
   const { image, name, description, attributes } = nftMetadata;
 
@@ -23,6 +36,7 @@ const DetailNftPage = () => {
       flexDirection='column'
       alignItems='center'
       w='100%'
+      minH='100vh'
       background='linear-gradient(to bottom, #f1856a, #ce48c1)'
       py={8}
       px={20}
