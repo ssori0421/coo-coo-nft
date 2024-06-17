@@ -36,23 +36,31 @@ const DetailNftPage = () => {
       flexDirection='column'
       alignItems='center'
       w='100%'
-      minH='100vh'
       background='linear-gradient(to bottom, #f1856a, #ce48c1)'
-      py={8}
       px={20}
       justifyContent='center'
     >
+      <Text
+        color='white'
+        fontSize={[24, 32, 36]}
+        fontWeight='bold'
+        fontFamily='DNFBitBitTTF'
+        mb={8}
+      >
+        NFT의 상세 정보를 확인해 보세요 !
+      </Text>
       <Box
         display='flex'
         flexDirection='column'
         alignItems='center'
-        bg='#9168ea'
+        bg='linear-gradient(to bottom, #9168ea, #e483db)'
         p={8}
         borderRadius='12px'
         w='100%'
         maxW='600px'
-        border='2px, solid'
-        boxShadow='4px 4px 6px rgba(0, 0, 0, 0.7)'
+        border='3px, solid'
+        borderColor='white'
+        boxShadow='4px 4px 6px rgba(244, 238, 238, 0.7)'
       >
         <Heading fontSize={36} color='white' fontFamily='DNFBitBitTTF' mb={4}>
           {name}
