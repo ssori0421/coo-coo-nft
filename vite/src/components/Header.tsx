@@ -9,8 +9,15 @@ import {
 } from '@chakra-ui/react';
 import { JsonRpcSigner } from 'ethers';
 import { ethers } from 'ethers';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Contract } from 'ethers';
+import {
+  mintContractAddress,
+  saleContractAddress,
+} from '../lib/contractAddress';
+import mintContractAbi from '../lib/mintContractAbi.json';
+import saleContractAbi from '../lib/saleContractAbi.json';
 
 const navLinks = [
   {
@@ -33,9 +40,16 @@ const navLinks = [
 interface IHeaderProps {
   signer: JsonRpcSigner | null;
   setSigner: Dispatch<SetStateAction<JsonRpcSigner | null>>;
+  setMintContract: Dispatch<SetStateAction<Contract | null>>;
+  setSaleContract: Dispatch<SetStateAction<Contract | null>>;
 }
 
-const Header = ({ signer, setSigner }: IHeaderProps) => {
+const Header = ({
+  signer,
+  setSigner,
+  setMintContract,
+  setSaleContract,
+}: IHeaderProps) => {
   const navigate = useNavigate();
 
   const onClickConnectMetamask = async () => {
@@ -55,6 +69,17 @@ const Header = ({ signer, setSigner }: IHeaderProps) => {
     setSigner(null);
   };
 
+  useEffect(() => {
+    if (!signer) {
+      setMintContract(null);
+
+      return;
+    }
+
+    setMintContract(new Contract(mintContractAddress, mintContractAbi, signer));
+    setSaleContract(new Contract(saleContractAddress, saleContractAbi, signer));
+  }, [signer]);
+
   return (
     <Flex
       h={16}
@@ -73,7 +98,7 @@ const Header = ({ signer, setSigner }: IHeaderProps) => {
         textAlign='center'
         onClick={() => navigate('/')}
         cursor='pointer'
-        fontFamily='Cafe24Meongi'
+        fontFamily='DNFBitBitTTF'
       >
         COO-COO <br /> WORLD
       </Flex>
