@@ -1,10 +1,10 @@
-import { Button, Flex, Grid, Text, Switch } from '@chakra-ui/react';
+import { Button, Flex, Text, Switch } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { IOutletContext } from '../components/Layout';
-import MyNftCard from '../components/MyNftCard';
-import useApprovalStatus from '../hooks/useApprovalStatue';
+import NftCardSlider from '../components/NftCardSlider';
 import useNftMetadata from '../hooks/useNftMetadata';
+import useApprovalStatus from '../hooks/useApprovalStatue';
 
 const PAGE = 3;
 
@@ -91,24 +91,14 @@ const MyCoocooPage = () => {
 
       {balanceOf ? (
         <>
-          <Grid
-            templateColumns={[
-              'repeat(1, 1fr)',
-              'repeat(2, 1fr)',
-              'repeat(3, 1fr)',
-            ]}
-            gap={6}
-          >
-            {nftMetadataArray.map((metadata, index) => (
-              <MyNftCard
-                key={index}
-                nftMetadata={metadata}
-                tokenId={tokenIds[index]}
-                saleContract={saleContract}
-                isApprovedForAll={isApprovedForAll}
-              />
-            ))}
-          </Grid>
+          <NftCardSlider
+            cards={nftMetadataArray.map((metadata, index) => ({
+              nftMetadata: metadata,
+              tokenId: tokenIds[index],
+              saleContract: saleContract,
+              isApprovedForAll: isApprovedForAll,
+            }))}
+          />
           {!isEnd && (
             <Button
               mt={8}
