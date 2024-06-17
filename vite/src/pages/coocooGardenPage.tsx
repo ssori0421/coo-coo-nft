@@ -1,4 +1,4 @@
-import { Flex, Grid, Text } from '@chakra-ui/react';
+import { Flex, Grid } from '@chakra-ui/react';
 import { useOutletContext } from 'react-router-dom';
 import { IOutletContext } from '../components/Layout';
 import { useEffect, useState } from 'react';
@@ -7,8 +7,7 @@ import GardenNftCard from '../components/GardenNftCard';
 const CooCooGardenPage = () => {
   const [tokenIds, setTokenIds] = useState<number[]>([]);
 
-  const { signer, saleContract, mintContract } =
-    useOutletContext<IOutletContext>();
+  const { signer, saleContract } = useOutletContext<IOutletContext>();
 
   const getOnSaleTokens = async () => {
     try {
@@ -50,8 +49,6 @@ const CooCooGardenPage = () => {
           <GardenNftCard
             key={index}
             tokenId={item}
-            mintContract={mintContract}
-            saleContract={saleContract}
             signer={signer}
             tokenIds={tokenIds}
             setTokenIds={setTokenIds}
