@@ -109,9 +109,10 @@ const Header = ({
             colorScheme='gray'
             variant='ghost'
             fontWeight='semibold'
-            fontSize={16}
+            fontSize={24}
             onClick={() => navigate(item.path)}
             textColor='white'
+            fontFamily='DNFBitBitTTF'
           >
             {item.name}
           </Button>

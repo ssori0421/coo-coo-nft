@@ -34,7 +34,7 @@ const NftCardSlider = ({ cards }: { cards: INftCardProps[] }) => {
   const visibleCards = cards.slice(currentIndex, currentIndex + 3);
 
   return (
-    <Flex alignItems='center'>
+    <Flex alignItems='center' mt={4}>
       {cards.length > 0 && (
         <IconButton
           icon={<ChevronLeftIcon />}

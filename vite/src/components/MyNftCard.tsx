@@ -73,14 +73,14 @@ const MyNftCard = ({
         boxShadow='4px 4px 6px rgba(244, 238, 238, 0.7)'
         borderRadius='12px'
         bgColor='white'
-        w={440}
+        maxW={440}
         p={4}
         h={800}
         bg='linear-gradient(to bottom, #9168ea, #e483db)'
       >
         <Text
           textAlign='center'
-          fontSize={28}
+          fontSize={[20, 20, 28]}
           variant='link'
           fontFamily='DNFBitBitTTF'
           color='white'
@@ -94,10 +94,10 @@ const MyNftCard = ({
           src={image}
           alt={name}
           mb={8}
-          w={300}
+          w={[220, 220, 300]}
           borderRadius='50%'
         />
-        <Text color='white' mb={4} fontWeight={800} px={4}>
+        <Text color='white' mb={4} fontWeight={[600, 600, 800]} px={4}>
           {description}
         </Text>
         <Flex flexWrap='wrap' justifyContent='center' mb={4}>
@@ -105,8 +105,8 @@ const MyNftCard = ({
             <Badge
               key={index}
               borderRadius='full'
-              px={2}
-              py={1}
+              px={[1, 1, 2]}
+              py={[0, 0, 1]}
               m={1}
               colorScheme='purple'
             >
@@ -120,7 +120,7 @@ const MyNftCard = ({
           {currentPrice ? (
             <Text
               color='white'
-              fontSize={20}
+              fontSize={[16, 16, 20]}
               fontWeight={800}
               position='absolute'
               bottom={8}
