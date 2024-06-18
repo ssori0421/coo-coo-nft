@@ -89,7 +89,6 @@ const MyNftCard = ({
         >
           {name}
         </Text>
-
         <Image
           alignSelf='center'
           src={image}
@@ -108,7 +107,6 @@ const MyNftCard = ({
               key={index}
               borderRadius='full'
               px={[1, 1, 2]}
-              // py={[0, 0, 1]}
               m={1}
               colorScheme='purple'
             >
@@ -137,6 +135,7 @@ const MyNftCard = ({
                   value={salePrice}
                   onChange={(e) => setSalePrice(e.target.value)}
                   textAlign='right'
+                  focusBorderColor='white'
                   isDisabled={isLoading}
                 />
                 <InputRightAddon>ETH</InputRightAddon>
@@ -146,7 +145,7 @@ const MyNftCard = ({
                 textColor='black'
                 bgColor='white'
                 onClick={onClickSetForSaleNft}
-                isDisabled={isLoading}
+                isDisabled={isLoading || !salePrice || isNaN(Number(salePrice))}
                 isLoading={isLoading}
                 loadingText='로딩중'
               >
