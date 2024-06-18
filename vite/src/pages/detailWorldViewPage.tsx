@@ -7,9 +7,22 @@ const DetailWorldViewPage = () => {
 
   const data = worldViewData.find((item) => item.id === Number(id));
 
-  if (!data) {
-    return null;
-  }
+  if (!data)
+    return (
+      <Flex
+        flexDirection='column'
+        alignItems='center'
+        w='100%'
+        background='linear-gradient(to bottom, #f1856a, #ce48c1)'
+        px={20}
+        py={12}
+        justifyContent='center'
+      >
+        <Flex justifyContent='center' alignItems='center' height='50vh'>
+          <Spinner size='xl' color='white' />
+        </Flex>
+      </Flex>
+    );
 
   const { title, src, contentTitle1, content1, contentTitle2, content2 } = data;
 
