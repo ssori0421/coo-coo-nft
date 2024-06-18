@@ -103,13 +103,13 @@ const Header = ({
         COO-COO <br /> WORLD
       </Flex>
       <Flex display={['none', 'none', 'flex']} gap={8}>
-        {navLinks.map((item, id) => (
+        {navLinks.map((item) => (
           <Button
-            key={id}
+            key={item.id}
             colorScheme='gray'
             variant='ghost'
             fontWeight='semibold'
-            fontSize={24}
+            fontSize={20}
             onClick={() => navigate(item.path)}
             textColor='white'
             fontFamily='DNFBitBitTTF'
