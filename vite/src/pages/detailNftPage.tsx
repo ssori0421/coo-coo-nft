@@ -6,36 +6,34 @@ import {
   Heading,
   Badge,
   Divider,
+  Spinner,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import useNftMetadatas from '../hooks/useNftMetadatas';
-import { useEffect } from 'react';
 
 const DetailNftPage = () => {
   const { tokenId } = useParams<{ tokenId: string }>();
 
-  const { nftMetadata, isLoading } = useNftMetadatas({
+  const { nftMetadata } = useNftMetadatas({
     tokenId: Number(tokenId),
   });
 
-  useEffect(() => {
-    console.log(nftMetadata, isLoading);
-  }, [nftMetadata, isLoading]);
-
-  if (isLoading || !nftMetadata) {
+  if (!nftMetadata)
     return (
       <Flex
         flexDirection='column'
         alignItems='center'
-        justifyContent='center'
         w='100%'
-        minH='100vh'
         background='linear-gradient(to bottom, #f1856a, #ce48c1)'
+        px={20}
+        py={12}
+        justifyContent='center'
       >
-        <Text>Loading...</Text>
+        <Flex justifyContent='center' alignItems='center' height='50vh'>
+          <Spinner size='xl' color='white' />
+        </Flex>
       </Flex>
     );
-  }
 
   const { image, name, description, attributes } = nftMetadata;
 
@@ -59,6 +57,7 @@ const DetailNftPage = () => {
       >
         COO-COO NFT Details
       </Text>
+
       <Box
         display='flex'
         flexDirection='column'

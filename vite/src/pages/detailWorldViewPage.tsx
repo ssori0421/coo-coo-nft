@@ -1,4 +1,4 @@
-import { Flex, Text, Image, Box, Divider } from '@chakra-ui/react';
+import { Flex, Text, Image, Box, Divider, Spinner } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import worldViewData from '../lib/worldView';
 
@@ -12,6 +12,23 @@ const DetailWorldViewPage = () => {
   }
 
   const { title, src, contentTitle1, content1, contentTitle2, content2 } = data;
+
+  if (!worldViewData)
+    return (
+      <Flex
+        flexDirection='column'
+        alignItems='center'
+        w='100%'
+        background='linear-gradient(to bottom, #f1856a, #ce48c1)'
+        px={20}
+        py={12}
+        justifyContent='center'
+      >
+        <Flex justifyContent='center' alignItems='center' height='50vh'>
+          <Spinner size='xl' color='white' />
+        </Flex>
+      </Flex>
+    );
 
   return (
     <Flex
