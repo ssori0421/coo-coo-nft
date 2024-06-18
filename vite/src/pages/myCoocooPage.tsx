@@ -81,7 +81,11 @@ const MyCoocooPage = () => {
             justifyContent={['center', 'center', 'flex-end']}
             ml={[0, 0, 'auto']}
           >
-            <Flex justifyContent={['center', 'center', 'end']}>
+            <Flex
+              justifyContent={['center', 'center', 'end']}
+              alignItems='center'
+              gap={1}
+            >
               <Text fontSize='lg' fontWeight='bold' fontFamily='DNFBitBitTTF'>
                 판매 여부
               </Text>
