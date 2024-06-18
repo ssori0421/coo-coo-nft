@@ -4,6 +4,7 @@ import rainbowBridge1 from '../../public/worldViewImages/rainbowBridge1.webp';
 import popoForest from '../../public/worldViewImages/popoForest.webp';
 import shimmeringLake1 from '../../public/worldViewImages/shimmeringLake1.webp';
 import coocooGrassland from '../../public/worldViewImages/coocooGrassland.webp';
+import { useNavigate } from 'react-router-dom';
 
 const worldViewImages = [
   {
@@ -12,22 +13,28 @@ const worldViewImages = [
     desc1: 'EP.01 ',
     desc2: 'Rainbow Bridge',
   },
+  { id: 2, src: popoForest, desc1: 'EP.02', desc2: 'PoPo Forest' },
   {
-    id: 2,
-    src: shimmeringLake1,
-    desc1: 'EP.02',
-    desc2: 'Shimmering Lake',
+    id: 3,
+    src: coocooGrassland,
+    desc1: 'EP.03 ',
+    desc2: 'CoCo Grassland',
   },
-  { id: 3, src: popoForest, desc1: 'EP.03', desc2: 'PoPo Forest' },
   {
     id: 4,
-    src: coocooGrassland,
-    desc1: 'EP.04 ',
-    desc2: 'CoCO Grassland',
+    src: shimmeringLake1,
+    desc1: 'EP.04',
+    desc2: 'Shimmering Lake',
   },
 ];
 
 const WorldViewPage: FC = () => {
+  const navigate = useNavigate();
+
+  const onClickWorldViewDatail = (id: number) => {
+    navigate(`/worldview/${id}`);
+  };
+
   return (
     <Flex
       flexDirection='column'
@@ -54,8 +61,7 @@ const WorldViewPage: FC = () => {
           fontWeight={600}
           fontFamily='DNFBitBitTTF'
         >
-          무지개 다리를 건너 쿠쿠 동산에 도착한 기니들은 어떻게 지내고
-          있을까요?!
+          무지개다리를 건너 쿠쿠 동산에 도착한 기니들은 어떻게 지내고 있을까요?!
         </Text>
         <Text
           fontSize={[16, 16, 20]}
@@ -63,14 +69,14 @@ const WorldViewPage: FC = () => {
           fontWeight={600}
           fontFamily='DNFBitBitTTF'
         >
-          쿠쿠월드의 세계관을 살펴보세요 :)
+          쿠쿠 월드의 세계관을 살펴보세요 :)
         </Text>
       </Flex>
       <Grid templateColumns='repeat(1, 1fr)' p={10} gap={10}>
-        {worldViewImages.map((item, id) => (
+        {worldViewImages.map((item) => (
           <Box
             position='relative'
-            key={id}
+            key={item.id}
             w={1200}
             h={400}
             borderRadius={24}
@@ -82,6 +88,7 @@ const WorldViewPage: FC = () => {
               },
               cursor: 'pointer',
             }}
+            onClick={() => onClickWorldViewDatail(item.id)}
           >
             <Image
               className='image'
