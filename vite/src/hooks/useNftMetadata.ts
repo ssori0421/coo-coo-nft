@@ -1,96 +1,71 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-interface UseNftMetadataParams {
+interface IUseNftMetadataParams {
   mintContract: any;
   signer: any;
   balanceOf: number;
-  PAGE: number;
-}
-
-export interface NftMetadata {
-  image: string;
-  name: string;
-  description: string;
-  attributes?: Array<{
-    trait_type: string;
-    value: string;
-  }>;
 }
 
 const useNftMetadata = ({
   mintContract,
   signer,
   balanceOf,
-  PAGE,
-}: UseNftMetadataParams) => {
+}: IUseNftMetadataParams) => {
   const [nftMetadataArray, setNftMetadataArray] = useState<NftMetadata[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const [isEnd, setIsEnd] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tokenIds, setTokenIds] = useState<number[]>([]);
 
   const fetchNftMetadata = useCallback(
-    async (tokenOfOwnerByIndex: any) => {
-      const tokenURI = await mintContract?.tokenURI(
-        Number(tokenOfOwnerByIndex)
-      );
-      const { data } = await axios.get<NftMetadata>(tokenURI);
-      return { data, tokenId: Number(tokenOfOwnerByIndex) };
+    async (tokenId: number) => {
+      try {
+        const tokenURI = await mintContract?.tokenURI(tokenId);
+        const { data } = await axios.get<NftMetadata>(tokenURI);
+        return { data, tokenId };
+      } catch (error) {
+        console.error(`Error fetching metadata for token ${tokenId}:`, error);
+        return null;
+      }
     },
     [mintContract]
   );
 
-  const getNftMetadata = useCallback(async () => {
+  const loadNftMetadata = useCallback(async () => {
     try {
       setIsLoading(true);
 
       const address = await signer?.getAddress();
-      const newNfts = await Promise.all(
-        Array.from({ length: PAGE }).map(async (_, i) => {
-          const tokenIndex = i + currentPage * PAGE;
-          if (tokenIndex >= balanceOf) {
-            setIsEnd(true);
-            return null;
-          }
-
-          const tokenOfOwnerByIndex = await mintContract?.tokenOfOwnerByIndex(
-            address,
-            tokenIndex
-          );
-          return fetchNftMetadata(tokenOfOwnerByIndex);
-        })
+      const nftPromises = Array.from({ length: balanceOf }).map(
+        async (_, i) => {
+          const tokenId = await mintContract?.tokenOfOwnerByIndex(address, i);
+          return fetchNftMetadata(Number(tokenId));
+        }
       );
 
-      const validNfts = newNfts.filter((nft) => nft !== null) as {
+      const nfts = await Promise.all(nftPromises);
+      const validNfts = nfts.filter((nft) => nft !== null) as {
         data: NftMetadata;
         tokenId: number;
       }[];
-      setNftMetadataArray((prev) => [
-        ...prev,
-        ...validNfts.map((nft) => nft.data),
-      ]);
-      setTokenIds((prev) => [...prev, ...validNfts.map((nft) => nft.tokenId)]);
-      setCurrentPage((prev) => prev + 1);
+      setNftMetadataArray(validNfts.map((nft) => nft.data));
+      setTokenIds(validNfts.map((nft) => nft.tokenId));
     } catch (error) {
-      console.error('Error fetching NFT metadata:', error);
+      console.error('Error loading NFT metadata:', error);
     } finally {
       setIsLoading(false);
     }
-  }, [balanceOf, currentPage, fetchNftMetadata, mintContract, PAGE, signer]);
+  }, [balanceOf, fetchNftMetadata, mintContract, signer]);
 
   useEffect(() => {
     if (balanceOf > 0) {
-      getNftMetadata();
+      loadNftMetadata();
     }
-  }, [balanceOf, getNftMetadata]);
+  }, [balanceOf, loadNftMetadata]);
 
   return {
     nftMetadataArray,
     tokenIds,
-    isEnd,
     isLoading,
-    getNftMetadata,
   };
 };
 
