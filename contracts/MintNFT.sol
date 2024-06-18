@@ -7,17 +7,13 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract MintNft is ERC721Enumerable, Ownable {
     string metadataUri;
-    string unrevealedUri;
 
-    bool isRevealed;
-
-    constructor(string memory _name, string memory _symbol, string memory _metadataUri, string memory _unrevealedUri) ERC721(_name, _symbol) Ownable(msg.sender) {
+    constructor(string memory _name, string memory _symbol, string memory _metadataUri) ERC721(_name, _symbol) Ownable(msg.sender) {
         metadataUri = _metadataUri;
-        unrevealedUri = _unrevealedUri;
     }
 
     function mintNft() public onlyOwner {
-        require(totalSupply() < 9, "No more mint.");
+        require(totalSupply() < 20, "No more mint.");
 
         uint tokenId = totalSupply() + 1;
 
@@ -25,14 +21,6 @@ contract MintNft is ERC721Enumerable, Ownable {
     }
 
     function tokenURI(uint _tokenId) public view override returns (string memory) {
-        if(isRevealed) {
-            return string(abi.encodePacked(metadataUri, Strings.toString(_tokenId), ".json")); 
-        } else {
-            return unrevealedUri;
-        }
-    }
-
-    function setIsReveal() public onlyOwner {
-        isRevealed = true;
+        return string(abi.encodePacked(metadataUri, Strings.toString(_tokenId), ".json")); 
     }
 }

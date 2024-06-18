@@ -15,11 +15,6 @@
         "internalType": "string",
         "name": "_metadataUri",
         "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_unrevealedUri",
-        "type": "string"
       }
     ],
     "stateMutability": "nonpayable",
@@ -469,13 +464,6 @@
       }
     ],
     "name": "setApprovalForAll",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "setIsReveal",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
