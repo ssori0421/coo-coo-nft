@@ -1,4 +1,12 @@
-import { Badge, Button, Flex, Box, Image, Text } from '@chakra-ui/react';
+import {
+  Badge,
+  Button,
+  Flex,
+  Box,
+  Image,
+  Text,
+  Divider,
+} from '@chakra-ui/react';
 import { formatEther, JsonRpcSigner } from 'ethers';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -136,14 +144,8 @@ const GardenNftCard = ({
           >
             가격 : {formatEther(price)} ETH
           </Text>
-          <Text
-            fontSize='sm'
-            mb={4}
-            textColor='white'
-            fontWeight={800}
-            mt={5}
-            px={8}
-          >
+          <Divider my={3} />
+          <Text fontSize='sm' mb={4} textColor='white' fontWeight={800} px={8}>
             {truncateText(description, 50)}
           </Text>
           <Flex flexWrap='wrap' justifyContent='center' mb={4}>

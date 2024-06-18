@@ -1,6 +1,7 @@
 import {
   Badge,
   Button,
+  Divider,
   Flex,
   GridItem,
   Image,
@@ -84,7 +85,7 @@ const MyNftCard = ({
           variant='link'
           fontFamily='DNFBitBitTTF'
           color='white'
-          mb={4}
+          mb={2}
         >
           {name}
         </Text>
@@ -97,16 +98,17 @@ const MyNftCard = ({
           w={[220, 220, 300]}
           borderRadius='50%'
         />
-        <Text color='white' mb={4} fontWeight={[600, 600, 800]} px={4}>
+        <Text color='white' mb={2} fontWeight={[600, 600, 800]} px={4}>
           {description}
         </Text>
+        <Divider mb={3} />
         <Flex flexWrap='wrap' justifyContent='center' mb={4}>
           {attributes?.map((attr, index) => (
             <Badge
               key={index}
               borderRadius='full'
               px={[1, 1, 2]}
-              py={[0, 0, 1]}
+              // py={[0, 0, 1]}
               m={1}
               colorScheme='purple'
             >
@@ -116,6 +118,7 @@ const MyNftCard = ({
             </Badge>
           ))}
         </Flex>
+
         <Flex mt={4} justifyContent='center'>
           {currentPrice ? (
             <Text
@@ -123,7 +126,7 @@ const MyNftCard = ({
               fontSize={[16, 16, 20]}
               fontWeight={800}
               position='absolute'
-              bottom={8}
+              bottom={2}
             >
               판매가격 : {formatEther(currentPrice)} ETH
             </Text>

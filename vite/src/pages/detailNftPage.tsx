@@ -1,4 +1,12 @@
-import { Flex, Box, Image, Text, Heading, Badge } from '@chakra-ui/react';
+import {
+  Flex,
+  Box,
+  Image,
+  Text,
+  Heading,
+  Badge,
+  Divider,
+} from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import useNftMetadatas from '../hooks/useNftMetadatas';
 import { useEffect } from 'react';
@@ -41,15 +49,6 @@ const DetailNftPage = () => {
       py={12}
       justifyContent='center'
     >
-      {/* <Text
-        color='white'
-        fontSize={[24, 32, 36]}
-        fontWeight='bold'
-        fontFamily='DNFBitBitTTF'
-        mb={8}
-      >
-        상세 정보를 확인해 보세요 :)
-      </Text> */}
       <Text
         color='white'
         fontSize={[28, 32, 36]}
@@ -76,12 +75,13 @@ const DetailNftPage = () => {
         <Heading fontSize={36} color='white' fontFamily='DNFBitBitTTF' mb={4}>
           {name}
         </Heading>
-        <Image src={image} alt={name} mb={8} w={400} borderRadius='50%' />
-
-        <Text fontSize='lg' mb={8} textColor='white' fontWeight={800} px={8}>
+        <Image src={image} alt={name} w={400} borderRadius='50%' />
+        <Divider my={4} />
+        <Text fontSize='lg' textColor='white' fontWeight={800} px={8} mb={8}>
           {description}
         </Text>
-        <Flex flexWrap='wrap' justifyContent='center' mb={4}>
+
+        <Flex flexWrap='wrap' justifyContent='center'>
           {attributes.map((attr, index) => (
             <Badge
               key={index}
