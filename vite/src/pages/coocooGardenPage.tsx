@@ -78,25 +78,36 @@ const CooCooGardenPage = () => {
           판매중인 NFT가 없습니다 :(
         </Text>
       ) : (
-        <Grid
-          templateColumns={[
-            'repeat(1, 1fr)',
-            'repeat(2, 1fr)',
-            'repeat(3, 1fr)',
-          ]}
-          gap={8}
-          mt={4}
-        >
-          {tokenIds.map((item, index) => (
-            <GardenNftCard
-              key={index}
-              tokenId={item}
-              signer={signer}
-              tokenIds={tokenIds}
-              setTokenIds={setTokenIds}
-            />
-          ))}
-        </Grid>
+        <>
+          <Text
+            color='white'
+            fontSize={20}
+            fontWeight='semibold'
+            textAlign='center'
+            mt={4}
+          >
+            카드를 클릭해서 상세 정보를 확인해 보세요!
+          </Text>
+          <Grid
+            templateColumns={[
+              'repeat(1, 1fr)',
+              'repeat(2, 1fr)',
+              'repeat(3, 1fr)',
+            ]}
+            gap={8}
+            mt={4}
+          >
+            {tokenIds.map((item, index) => (
+              <GardenNftCard
+                key={index}
+                tokenId={item}
+                signer={signer}
+                tokenIds={tokenIds}
+                setTokenIds={setTokenIds}
+              />
+            ))}
+          </Grid>
+        </>
       )}
     </Flex>
   );

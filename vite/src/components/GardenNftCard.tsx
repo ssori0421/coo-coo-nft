@@ -1,4 +1,4 @@
-import { Box, Button, Flex, GridItem, Image, Text } from '@chakra-ui/react';
+import { Badge, Button, Flex, Box, Image, Text } from '@chakra-ui/react';
 import { formatEther, JsonRpcSigner } from 'ethers';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,13 @@ interface IGardenNftCardProps {
   tokenIds: number[];
   setTokenIds: Dispatch<SetStateAction<number[]>>;
 }
+
+const truncateText = (text: string, maxLength: number) => {
+  if (text.length <= maxLength) {
+    return text;
+  }
+  return text.substring(0, maxLength) + '..';
+};
 
 const GardenNftCard = ({
   tokenId,
@@ -25,7 +32,7 @@ const GardenNftCard = ({
     });
 
   const onClickPurchaseNft = async (e: React.MouseEvent) => {
-    e.stopPropagation(); // 클릭 이벤트 전파 중지
+    e.stopPropagation();
     try {
       setIsLoading(true);
 
@@ -58,56 +65,104 @@ const GardenNftCard = ({
 
   return (
     <Flex flexDirection='column' alignItems='center' justifyContent='center'>
-      <GridItem
+      <Box
         display='flex'
         flexDir='column'
         border='3px solid'
-        borderColor='black'
+        borderColor='white'
+        boxShadow='4px 4px 6px rgba(244, 238, 238, 0.7)'
         borderRadius='12px'
-        bgColor='white'
-        boxShadow='4px 4px 6px rgba(0, 0, 0, 0.6)'
+        h={680}
+        bg='linear-gradient(to bottom, #9168ea, #e483db)'
         w={400}
         p={4}
+        position='relative'
+        overflow='hidden'
         onClick={() => onClickCardDetail(tokenId)}
+        _hover={{
+          _before: {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            bg: 'rgba(255, 255, 255, 0.7)',
+            borderRadius: '12px',
+            zIndex: 5,
+          },
+          cursor: 'pointer',
+        }}
       >
-        <Flex alignItems='center' justifyContent='space-between'>
-          <Text
-            fontSize={20}
-            variant='link'
-            fontFamily='DNFBitBitTTF'
-            color='#ce48c1'
-          >
-            {name}
-          </Text>
-
-          {price ? (
-            <Button
-              ml={2}
-              colorScheme='pink'
-              onClick={onClickPurchaseNft}
-              isDisabled={isLoading || tokenOwner === signer?.address}
-              isLoading={isLoading}
-              loadingText='로딩중..'
+        <Flex flexDirection='column' zIndex={2}>
+          <Flex alignItems='center' justifyContent='space-between'>
+            <Text
+              fontSize={24}
+              variant='link'
+              fontFamily='DNFBitBitTTF'
+              color='white'
             >
-              구매
-            </Button>
-          ) : null}
-        </Flex>
+              {name}
+            </Text>
 
-        <Image alignSelf='center' src={image} alt={name} w={300} />
-        <Text textAlign='center' fontWeight='semibold'>
-          가격 : {formatEther(price)} ETH
-        </Text>
-        {/* 간단한 NFT 한 줄 소개 */}
-        <Flex flexWrap='wrap' mt={4} gap={2} justifyContent='center'>
-          {attributes?.map(({ trait_type, value }, index) => (
-            <Box key={index} border='2px solid olive' p={1}>
-              <Text borderBottom='2px solid olive'>{trait_type}</Text>
-              <Text>{value}</Text>
-            </Box>
-          ))}
+            {price ? (
+              <Button
+                ml={2}
+                colorScheme='pink'
+                onClick={onClickPurchaseNft}
+                isDisabled={isLoading || tokenOwner === signer?.address}
+                isLoading={isLoading}
+                loadingText='로딩중..'
+              >
+                구매
+              </Button>
+            ) : null}
+          </Flex>
+
+          <Image
+            alignSelf='center'
+            src={image}
+            alt={name}
+            w={300}
+            borderRadius='50%'
+            my={4}
+          />
+          <Text
+            textAlign='center'
+            fontWeight='bold'
+            color='white'
+            fontSize={18}
+            fontFamily='DNFBitBitTTF'
+          >
+            가격 : {formatEther(price)} ETH
+          </Text>
+          <Text
+            fontSize='sm'
+            mb={4}
+            textColor='white'
+            fontWeight={800}
+            mt={5}
+            px={8}
+          >
+            {truncateText(description, 50)}
+          </Text>
+          <Flex flexWrap='wrap' justifyContent='center' mb={4}>
+            {attributes.map((attr, index) => (
+              <Badge
+                key={index}
+                borderRadius='full'
+                px={2}
+                m={1}
+                colorScheme='purple'
+              >
+                <Text fontSize='sm'>
+                  {attr.trait_type}: {attr.value}
+                </Text>
+              </Badge>
+            ))}
+          </Flex>
         </Flex>
-      </GridItem>
+      </Box>
     </Flex>
   );
 };

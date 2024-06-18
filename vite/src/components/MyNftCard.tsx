@@ -80,11 +80,11 @@ const MyNftCard = ({
       >
         <Text
           textAlign='center'
-          fontSize={24}
+          fontSize={28}
           variant='link'
           fontFamily='DNFBitBitTTF'
           color='white'
-          mb={2}
+          mb={4}
         >
           {name}
         </Text>
@@ -95,9 +95,9 @@ const MyNftCard = ({
           alt={name}
           mb={8}
           w={300}
-          borderRadius={12}
+          borderRadius='50%'
         />
-        <Text color='white' mb={4}>
+        <Text color='white' mb={4} fontWeight={800} px={4}>
           {description}
         </Text>
         <Flex flexWrap='wrap' justifyContent='center' mb={4}>
@@ -118,7 +118,13 @@ const MyNftCard = ({
         </Flex>
         <Flex mt={4} justifyContent='center'>
           {currentPrice ? (
-            <Text color='white' fontSize={20} fontWeight='semibold'>
+            <Text
+              color='white'
+              fontSize={20}
+              fontWeight={800}
+              position='absolute'
+              bottom={8}
+            >
               판매가격 : {formatEther(currentPrice)} ETH
             </Text>
           ) : isApprovedForAll ? (

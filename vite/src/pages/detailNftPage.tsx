@@ -38,16 +38,27 @@ const DetailNftPage = () => {
       w='100%'
       background='linear-gradient(to bottom, #f1856a, #ce48c1)'
       px={20}
+      py={12}
       justifyContent='center'
     >
-      <Text
+      {/* <Text
         color='white'
         fontSize={[24, 32, 36]}
         fontWeight='bold'
         fontFamily='DNFBitBitTTF'
         mb={8}
       >
-        NFT의 상세 정보를 확인해 보세요 !
+        상세 정보를 확인해 보세요 :)
+      </Text> */}
+      <Text
+        color='white'
+        fontSize={[28, 32, 36]}
+        fontWeight='bold'
+        fontFamily='DNFBitBitTTF'
+        textAlign='center'
+        mb={8}
+      >
+        COO-COO NFT Details
       </Text>
       <Box
         display='flex'
@@ -65,9 +76,9 @@ const DetailNftPage = () => {
         <Heading fontSize={36} color='white' fontFamily='DNFBitBitTTF' mb={4}>
           {name}
         </Heading>
-        <Image src={image} alt={name} mb={8} w={400} borderRadius={12} />
+        <Image src={image} alt={name} mb={8} w={400} borderRadius='50%' />
 
-        <Text fontSize='lg' mb={8} textColor='white'>
+        <Text fontSize='lg' mb={8} textColor='white' fontWeight={800} px={8}>
           {description}
         </Text>
         <Flex flexWrap='wrap' justifyContent='center' mb={4}>
