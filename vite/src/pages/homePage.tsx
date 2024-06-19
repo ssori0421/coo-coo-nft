@@ -1,48 +1,11 @@
-import { FC, useEffect } from 'react';
 import { Flex, Text, Box, Image } from '@chakra-ui/react';
 import homeSlideImagesData from '../lib/homeSlideImages';
 import cooing4 from '../../public/homeCoocooImages/cooing4.png';
 import cooing15 from '../../public/homeCoocooImages/cooing15.png';
+import useImageSlide from '../hooks/useImageSlide';
 
-const animateSlider = () => {
-  const slider = document.getElementById('slider');
-
-  const startAnimation = () => {
-    if (slider) {
-      slider.style.transition = 'none';
-      slider.style.transform = 'translateX(0)';
-
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          slider.style.transition = 'transform 60s linear';
-          slider.style.transform = `translateX(-${slider.scrollWidth / 2}px)`;
-        }, 50);
-      });
-    }
-  };
-
-  const handleTransitionEnd = () => {
-    if (slider) {
-      slider.style.transition = 'none';
-      slider.style.transform = 'translateX(0)';
-      requestAnimationFrame(startAnimation);
-    }
-  };
-
-  slider?.addEventListener('transitionend', handleTransitionEnd);
-
-  startAnimation();
-
-  return () => {
-    slider?.removeEventListener('transitionend', handleTransitionEnd);
-  };
-};
-
-const HomePage: FC = () => {
-  useEffect(() => {
-    const cleanup = animateSlider();
-    return cleanup;
-  }, []);
+const HomePage = () => {
+  useImageSlide();
 
   return (
     <Flex
