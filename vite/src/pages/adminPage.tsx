@@ -1,9 +1,18 @@
-import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  Text,
+  useDisclosure,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+} from '@chakra-ui/react';
 import axios from 'axios';
-import { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
-import { IOutletContext } from '../components/Layout';
+import { useEffect, useState } from 'react';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import MintModal from '../components/MintModal';
+import { IOutletContext } from '../components/Layout';
 
 interface INftMetadata {
   image: string;
@@ -18,10 +27,11 @@ interface INftMetadata {
 const AdminPage = () => {
   const [nftMetadata, setNftMetadata] = useState<INftMetadata | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false); // State to control showing the modal
 
   const { mintContract, signer } = useOutletContext<IOutletContext>();
-
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
 
   const onClickMint = async () => {
     console.log('onClickMint');
@@ -32,10 +42,9 @@ const AdminPage = () => {
       await response.wait();
 
       const totalSupply = await mintContract?.totalSupply();
-
       const tokenURI = await mintContract?.tokenURI(totalSupply);
 
-      const { data } = await axios.get<NftMetadata>(tokenURI);
+      const { data } = await axios.get<INftMetadata>(tokenURI);
       setNftMetadata(data);
 
       onOpen();
@@ -46,6 +55,19 @@ const AdminPage = () => {
 
       setIsLoading(false);
     }
+  };
+
+  useEffect(() => {
+    if (!signer || signer.address !== 'mintContractAddress') {
+      setShowModal(true);
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+    }
+  }, [signer, navigate]);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -74,7 +96,6 @@ const AdminPage = () => {
         >
           🚫 ADMIN 🚫
         </Text>
-
         <Button
           position='absolute'
           top='50%'
@@ -88,12 +109,25 @@ const AdminPage = () => {
         >
           민팅하기
         </Button>
+
         <MintModal
           isOpen={isOpen}
           onClose={onClose}
           nftMetadata={nftMetadata}
         />
       </Flex>
+      <Modal
+        isOpen={showModal}
+        onClose={handleCloseModal}
+        isCentered
+        blockScrollOnMount
+        closeOnOverlayClick={false}
+      >
+        <ModalContent display='flex' alignItems='center'>
+          <ModalHeader>관리자만 접근할 수 있는 페이지입니다.</ModalHeader>
+          <ModalBody>잠시 후 메인 페이지로 이동합니다...</ModalBody>
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 };
