@@ -13,9 +13,10 @@ import {
 import { Contract, parseEther, formatEther } from 'ethers';
 import { useState } from 'react';
 import useGetTokenPrice from '../hooks/useGetTokenPrice';
+import { INftMetadata } from '../types/metadata';
 
 interface INftCardProps {
-  nftMetadata: NftMetadata;
+  nftMetadata: INftMetadata;
   tokenId: number;
   saleContract: Contract | null;
   isApprovedForAll: boolean;

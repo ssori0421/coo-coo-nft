@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Contract } from 'ethers';
 import { saleContractAddress } from '../lib/contractAddress';
+import { JsonRpcSigner } from 'ethers';
 
 interface UseApprovalStatusProps {
   mintContract: Contract | null;
-  signer: any;
+  signer: JsonRpcSigner | null;
 }
 
 const useApprovalStatus = ({

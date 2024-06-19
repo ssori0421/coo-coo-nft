@@ -13,16 +13,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import MintModal from '../components/MintModal';
 import { IOutletContext } from '../components/Layout';
-
-interface INftMetadata {
-  image: string;
-  name: string;
-  description: string;
-  attributes?: Array<{
-    trait_type: string;
-    value: string;
-  }>;
-}
+import { INftMetadata } from '../types/metadata';
 
 const AdminPage = () => {
   const [nftMetadata, setNftMetadata] = useState<INftMetadata | null>(null);
@@ -34,7 +25,6 @@ const AdminPage = () => {
   const navigate = useNavigate();
 
   const onClickMint = async () => {
-    console.log('onClickMint');
     try {
       setIsLoading(true);
 

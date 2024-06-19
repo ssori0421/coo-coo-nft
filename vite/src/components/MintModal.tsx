@@ -10,11 +10,12 @@ import {
   ModalOverlay,
   Text,
 } from '@chakra-ui/react';
+import { INftMetadata } from '../types/metadata';
 
 interface IMintModalProps {
   isOpen: boolean;
   onClose: () => void;
-  nftMetadata: NftMetadata | null;
+  nftMetadata: INftMetadata | null;
 }
 
 const MintModal = ({ isOpen, onClose, nftMetadata }: IMintModalProps) => {

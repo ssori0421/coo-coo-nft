@@ -3,21 +3,10 @@ import axios from 'axios';
 import { Contract } from 'ethers';
 import { useOutletContext } from 'react-router-dom';
 import { JsonRpcSigner } from 'ethers';
+import { INftMetadata, ISaleNftMetadata } from '../types/metadata';
 
 interface IUseNftMetadatasProps {
   tokenId: number;
-}
-
-interface INftMetadata {
-  image: string;
-  name: string;
-  description: string;
-  attributes: { trait_type: string; value: string }[];
-}
-
-interface ISaleNftMetadata extends INftMetadata {
-  price: any;
-  tokenOwner: string;
 }
 
 interface IOutletContext {

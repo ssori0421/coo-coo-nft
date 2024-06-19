@@ -3,9 +3,10 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { useState, useEffect } from 'react';
 import MyNftCard from './MyNftCard';
 import { Contract } from 'ethers';
+import { INftMetadata } from '../types/metadata';
 
 interface INftCardProps {
-  nftMetadata: NftMetadata;
+  nftMetadata: INftMetadata;
   tokenId: number;
   saleContract: Contract | null;
   isApprovedForAll: boolean;

@@ -18,6 +18,7 @@ import {
 } from '../lib/contractAddress';
 import mintContractAbi from '../lib/mintContractAbi.json';
 import saleContractAbi from '../lib/saleContractAbi.json';
+import { EthereumWindow } from '../../global';
 
 const navLinks = [
   {
@@ -61,9 +62,10 @@ const Header = ({
 
   const getSigner = async () => {
     try {
-      if (!window.ethereum) return;
+      const ethereumWindow = (window as EthereumWindow).ethereum;
+      if (!ethereumWindow) return;
 
-      const provider = new ethers.BrowserProvider(window.ethereum);
+      const provider = new ethers.BrowserProvider(ethereumWindow);
 
       setSigner(await provider.getSigner());
       localStorage.setItem('isLogedIn', 'true');

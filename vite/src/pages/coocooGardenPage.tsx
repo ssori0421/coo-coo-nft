@@ -13,7 +13,8 @@ const CooCooGardenPage = () => {
   const getOnSaleTokens = async () => {
     try {
       const response = await saleContract?.getOnSaleTokens();
-      const tempTokenIds = response.map((item: any) => {
+
+      const tempTokenIds = response.map((item: number) => {
         return Number(item);
       });
       setTokenIds(tempTokenIds);

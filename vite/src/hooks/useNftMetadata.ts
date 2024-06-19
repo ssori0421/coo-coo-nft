@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { INftMetadata } from '../types/metadata';
+import { Contract, JsonRpcSigner } from 'ethers';
 
 interface IUseNftMetadataParams {
-  mintContract: any;
-  signer: any;
+  mintContract: Contract | null;
+  signer: JsonRpcSigner | null;
   balanceOf: number;
 }
 
@@ -12,7 +14,7 @@ const useNftMetadata = ({
   signer,
   balanceOf,
 }: IUseNftMetadataParams) => {
-  const [nftMetadataArray, setNftMetadataArray] = useState<NftMetadata[]>([]);
+  const [nftMetadataArray, setNftMetadataArray] = useState<INftMetadata[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tokenIds, setTokenIds] = useState<number[]>([]);
 
@@ -20,7 +22,8 @@ const useNftMetadata = ({
     async (tokenId: number) => {
       try {
         const tokenURI = await mintContract?.tokenURI(tokenId);
-        const { data } = await axios.get<NftMetadata>(tokenURI);
+        const { data } = await axios.get<INftMetadata>(tokenURI);
+
         return { data, tokenId };
       } catch (error) {
         console.error(`Error fetching metadata for token ${tokenId}:`, error);
@@ -44,7 +47,7 @@ const useNftMetadata = ({
 
       const nfts = await Promise.all(nftPromises);
       const validNfts = nfts.filter((nft) => nft !== null) as {
-        data: NftMetadata;
+        data: INftMetadata;
         tokenId: number;
       }[];
       setNftMetadataArray(validNfts.map((nft) => nft.data));

@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import rainbowBridge1 from '../../public/worldViewImages/rainbowBridge1.webp';
 import popoForest from '../../public/worldViewImages/popoForest.webp';
@@ -28,7 +27,7 @@ const worldViewImages = [
   },
 ];
 
-const WorldViewPage: FC = () => {
+const WorldViewPage = () => {
   const navigate = useNavigate();
 
   const onClickWorldViewDatail = (id: number) => {
