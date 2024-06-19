@@ -48,7 +48,10 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    if (!signer || signer.address !== 'mintContractAddress') {
+    if (
+      !signer ||
+      signer.address !== '0xfBa9972055C1FC1bE7cB2e2e783328725b04ede2'
+    ) {
       setShowModal(true);
       setTimeout(() => {
         navigate('/');
@@ -95,7 +98,7 @@ const AdminPage = () => {
           onClick={onClickMint}
           isDisabled={!signer}
           isLoading={isLoading}
-          loadingText='민팅중..'
+          loadingText='민팅중'
         >
           민팅하기
         </Button>

@@ -152,7 +152,7 @@ const MyNftCard = ({
                 onClick={onClickSetForSaleNft}
                 isDisabled={isLoading || !salePrice || isNaN(Number(salePrice))}
                 isLoading={isLoading}
-                loadingText='로딩중'
+                loadingText='등록중'
               >
                 등록
               </Button>

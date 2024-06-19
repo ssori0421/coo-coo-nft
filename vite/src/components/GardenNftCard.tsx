@@ -88,7 +88,7 @@ const GardenNftCard = ({
                 onClick={onClickPurchaseNft}
                 isDisabled={isLoading || tokenOwner === signer?.address}
                 isLoading={isLoading}
-                loadingText='로딩중..'
+                loadingText='구매중'
               >
                 구매
               </Button>

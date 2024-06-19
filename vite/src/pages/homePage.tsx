@@ -60,10 +60,10 @@ const HomePage = () => {
             </Text>
           </Flex>
           <Flex flexDir='column' alignItems='center' sx={animationStyle('1s')}>
-            <Text fontSize={[32, 32, 60]} fontFamily='DNFBitBitTTF'>
+            <Text fontSize={[32, 32, 52]} fontFamily='DNFBitBitTTF'>
               COO-COO
             </Text>
-            <Text fontSize={[32, 32, 60]} fontFamily='DNFBitBitTTF'>
+            <Text fontSize={[32, 32, 52]} fontFamily='DNFBitBitTTF'>
               WORLD
             </Text>
           </Flex>
