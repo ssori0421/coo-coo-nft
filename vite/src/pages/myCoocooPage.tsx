@@ -58,11 +58,11 @@ const MyCoocooPage = () => {
           fontWeight='bold'
           fontFamily='DNFBitBitTTF'
           textAlign='center'
-          mb={4}
+          mb={2}
         >
           <Text
             color='white'
-            fontSize={[28, 32, 36]}
+            fontSize={[28, 28, 32]}
             fontWeight='bold'
             fontFamily='DNFBitBitTTF'
           >
@@ -70,7 +70,7 @@ const MyCoocooPage = () => {
           </Text>
           <Text
             color='white'
-            fontSize={[28, 32, 36]}
+            fontSize={[28, 28, 32]}
             fontWeight='bold'
             fontFamily='DNFBitBitTTF'
           >
@@ -123,7 +123,7 @@ const MyCoocooPage = () => {
           />
         )}
         {!signer && (
-          <Text color='white' fontSize={24} fontWeight='semibold'>
+          <Text color='white' fontSize={[16, 16, 20]} fontWeight='semibold'>
             지갑을 연결해 주세요 :)
           </Text>
         )}
