@@ -1,8 +1,25 @@
-import { Flex, Text, Box, Image } from '@chakra-ui/react';
+import { Flex, Text, Box, Image, keyframes } from '@chakra-ui/react';
 import homeSlideImagesData from '../lib/homeSlideImages';
 import cooing17 from '../../public/homeCoocooImages/cooing17.png';
 import cooing15 from '../../public/homeCoocooImages/cooing15.png';
 import useImageSlide from '../hooks/useImageSlide';
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const animationStyle = (delay: string) => ({
+  animation: `${fadeIn} 1s ease-in-out forwards`,
+  animationDelay: delay,
+  opacity: 0,
+});
 
 const HomePage = () => {
   useImageSlide();
@@ -23,30 +40,33 @@ const HomePage = () => {
         flexDir='column'
       >
         <Flex flexDir='column' alignItems='center' mt={150}>
-          <Flex>
+          <Box sx={animationStyle('0s')} mb={8}>
             <Text
               color='white'
               fontFamily='DNFBitBitTTF'
               fontSize={[16, 16, 20]}
-              mb={8}
             >
               무지개 동산으로 소풍을 떠난 쿠쿠 친구들을 만나러 가볼까요 ?
             </Text>
+          </Box>
+          <Flex sx={animationStyle('0.5s')}>
+            <Text
+              color='white'
+              fontSize={[24, 24, 36]}
+              fontWeight='bold'
+              fontFamily='DNFBitBitTTF'
+            >
+              WELCOME TO
+            </Text>
           </Flex>
-          <Text
-            color='white'
-            fontSize={[20, 20, 32]}
-            fontWeight='bold'
-            fontFamily='DNFBitBitTTF'
-          >
-            WELCOME TO
-          </Text>
-          <Text fontSize={[32, 32, 60]} fontFamily='DNFBitBitTTF'>
-            COO-COO
-          </Text>
-          <Text fontSize={[32, 32, 60]} fontFamily='DNFBitBitTTF'>
-            WORLD
-          </Text>
+          <Flex flexDir='column' alignItems='center' sx={animationStyle('1s')}>
+            <Text fontSize={[32, 32, 60]} fontFamily='DNFBitBitTTF'>
+              COO-COO
+            </Text>
+            <Text fontSize={[32, 32, 60]} fontFamily='DNFBitBitTTF'>
+              WORLD
+            </Text>
+          </Flex>
         </Flex>
         <Flex
           justifyContent='space-between'
@@ -64,7 +84,7 @@ const HomePage = () => {
           mt={8}
           position='fixed'
           bottom={0}
-          border='4px, solid'
+          border='4px solid'
           borderColor='white'
           borderLeft='none'
           borderRight='none'
@@ -96,22 +116,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-<Flex
-  w='100%'
-  flexDir='column'
-  alignItems='center'
-  background='linear-gradient(to bottom, #f1856a, #ce48c1)'
-  position='relative'
->
-  <Flex
-    flexDir='column'
-    alignItems='center'
-    position='fixed'
-    top='50%'
-    left='50%'
-    transform='translate(-50%, -50%)'
-  >
-    이 부분은 부모 Flex 컴포넌트의 중앙에 배치된다
-  </Flex>
-</Flex>;
