@@ -8,6 +8,7 @@ import {
   Input,
   InputGroup,
   InputRightAddon,
+  Tag,
   Text,
 } from '@chakra-ui/react';
 import { Contract, parseEther, formatEther } from 'ethers';
@@ -76,12 +77,12 @@ const MyNftCard = ({
         bgColor='white'
         maxW={440}
         p={4}
-        h={800}
+        h={600}
         bg='linear-gradient(to bottom, #9168ea, #e483db)'
       >
         <Text
           textAlign='center'
-          fontSize={[20, 20, 28]}
+          fontSize={[16, 16, 20]}
           variant='link'
           fontFamily='DNFBitBitTTF'
           color='white'
@@ -93,15 +94,21 @@ const MyNftCard = ({
           alignSelf='center'
           src={image}
           alt={name}
-          mb={8}
-          w={[220, 220, 300]}
+          mb={4}
+          w={180}
           borderRadius='50%'
         />
-        <Text color='white' mb={2} fontWeight={[600, 600, 800]} px={4}>
+        <Text
+          color='white'
+          mb={2}
+          fontWeight={600}
+          fontSize={[12, 12, 14]}
+          // px={4}
+        >
           {description}
         </Text>
-        <Divider mb={3} />
-        <Flex flexWrap='wrap' justifyContent='center' mb={4}>
+        <Divider my={2} />
+        {/* <Flex flexWrap='wrap' justifyContent='center' mb={4}>
           {attributes?.map((attr, index) => (
             <Badge
               key={index}
@@ -115,13 +122,31 @@ const MyNftCard = ({
               </Text>
             </Badge>
           ))}
+        </Flex> */}
+        <Flex width='100%' flexWrap='wrap' justifyContent='center'>
+          {attributes?.map((attr, index) => (
+            <Tag
+              key={index}
+              textAlign='center'
+              display='flex'
+              borderRadius='full'
+              px={2}
+              m={1}
+              bgColor='white'
+              fontFamily='DNFBitBitTTF'
+              color='black'
+              fontSize={12}
+            >
+              {attr.value}
+            </Tag>
+          ))}
         </Flex>
 
         <Flex mt={4} justifyContent='center'>
           {currentPrice ? (
             <Text
               color='white'
-              fontSize={[16, 16, 20]}
+              fontSize={[12, 12, 16]}
               fontWeight={800}
               position='absolute'
               bottom={2}
@@ -129,7 +154,7 @@ const MyNftCard = ({
               판매가격 : {formatEther(currentPrice)} ETH
             </Text>
           ) : isApprovedForAll ? (
-            <Flex position='absolute' bottom={4}>
+            <Flex position='absolute' bottom={4} w='100%'>
               <InputGroup>
                 <Input
                   value={salePrice}

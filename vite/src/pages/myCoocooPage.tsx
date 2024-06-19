@@ -39,82 +39,95 @@ const MyCoocooPage = () => {
 
   return (
     <Flex
-      flexDirection='column'
       w='100%'
-      background='linear-gradient(to bottom, #f1856a, #ce48c1)'
-      py={8}
-      px={20}
+      flexDir='column'
       alignItems='center'
-      minW={530}
+      background='linear-gradient(to bottom, #f1856a, #ce48c1)'
     >
-      <Flex mb={4} gap={2}>
-        <Text
+      <Flex
+        w='100%'
+        maxW='1024px'
+        flexDir='column'
+        p={8}
+        justifyContent='center'
+        alignItems='center'
+      >
+        <Flex
           color='white'
-          fontSize={[28, 32, 36]}
+          fontSize={[28, 28, 32]}
           fontWeight='bold'
           fontFamily='DNFBitBitTTF'
+          textAlign='center'
+          mb={4}
         >
-          MY COO-COO NFT
-        </Text>
-        <Text
-          color='white'
-          fontSize={[28, 32, 36]}
-          fontWeight='bold'
-          fontFamily='DNFBitBitTTF'
-        >
-          : {balanceOf} 개
-        </Text>
-      </Flex>
-      {signer && !balanceOf ? (
-        <Flex justifyContent='center' alignItems='center' height='50vh'>
-          <Spinner size='xl' color='white' />
-        </Flex>
-      ) : (
-        signer && (
-          <Flex
-            alignItems='center'
-            gap={4}
-            p={4}
-            borderRadius='24px'
-            bg='white'
-            boxShadow='md'
-            justifyContent={['center', 'center', 'flex-end']}
-            ml={[0, 0, 'auto']}
+          <Text
+            color='white'
+            fontSize={[28, 32, 36]}
+            fontWeight='bold'
+            fontFamily='DNFBitBitTTF'
           >
-            <Flex
-              justifyContent={['center', 'center', 'end']}
-              alignItems='center'
-              gap={1}
-            >
-              <Text fontSize='lg' fontWeight='bold' fontFamily='DNFBitBitTTF'>
-                판매 여부
-              </Text>
-              <Switch
-                colorScheme='blue'
-                isChecked={isApprovedForAll}
-                onChange={onClickSetApprovalForAll}
-                isDisabled={isApproveLoading}
-              />
-            </Flex>
+            MY COO-COO NFT
+          </Text>
+          <Text
+            color='white'
+            fontSize={[28, 32, 36]}
+            fontWeight='bold'
+            fontFamily='DNFBitBitTTF'
+          >
+            : {balanceOf} 개
+          </Text>
+        </Flex>
+        {signer && !balanceOf ? (
+          <Flex justifyContent='center' alignItems='center' height='50vh'>
+            <Spinner size='xl' color='white' />
           </Flex>
-        )
-      )}
+        ) : (
+          signer && (
+            <Flex
+              alignItems='center'
+              gap={4}
+              p={4}
+              borderRadius='24px'
+              bg='white'
+              boxShadow='md'
+              justifyContent={['center', 'center', 'flex-end']}
+              ml={[0, 0, 'auto']}
+            >
+              <Flex
+                justifyContent={['center', 'center', 'end']}
+                alignItems='center'
+                gap={1}
+              >
+                <Text fontSize='lg' fontWeight='bold' fontFamily='DNFBitBitTTF'>
+                  판매 여부
+                </Text>
+                <Switch
+                  colorScheme='blue'
+                  isChecked={isApprovedForAll}
+                  onChange={onClickSetApprovalForAll}
+                  isDisabled={isApproveLoading}
+                />
+              </Flex>
+            </Flex>
+          )
+        )}
 
-      {balanceOf > 0 && (
-        <NftCardSlider
-          cards={nftMetadataArray.map((metadata, index) => ({
-            nftMetadata: metadata,
-            tokenId: tokenIds[index],
-            saleContract,
-            isApprovedForAll,
-          }))}
-        />
-      )}
-      {!signer && (
-        <Text color='white' fontSize={24} fontWeight='semibold'>
-          지갑을 연결해 주세요 :)
-        </Text>
-      )}
+        {balanceOf > 0 && (
+          <NftCardSlider
+            cards={nftMetadataArray.map((metadata, index) => ({
+              nftMetadata: metadata,
+              tokenId: tokenIds[index],
+              saleContract,
+              isApprovedForAll,
+            }))}
+          />
+        )}
+        {!signer && (
+          <Text color='white' fontSize={24} fontWeight='semibold'>
+            지갑을 연결해 주세요 :)
+          </Text>
+        )}
+      </Flex>
     </Flex>
   );
 };
