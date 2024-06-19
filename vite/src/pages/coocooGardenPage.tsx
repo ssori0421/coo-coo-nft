@@ -1,4 +1,4 @@
-import { Flex, Grid, Text, Spinner } from '@chakra-ui/react';
+import { Flex, Grid, Text, Spinner, GridItem } from '@chakra-ui/react';
 import { useOutletContext } from 'react-router-dom';
 import { IOutletContext } from '../components/Layout';
 import { useEffect, useState } from 'react';
@@ -36,79 +36,82 @@ const CooCooGardenPage = () => {
 
   return (
     <Flex
-      flexDirection='column'
       w='100%'
-      background='linear-gradient(to bottom, #f1856a, #ce48c1)'
-      py={8}
-      px={20}
+      flexDir='column'
       alignItems='center'
+      background='linear-gradient(to bottom, #f1856a, #ce48c1)'
     >
-      <Text
-        color='white'
-        fontSize={[28, 32, 36]}
-        fontWeight='bold'
-        fontFamily='DNFBitBitTTF'
-        textAlign='center'
-      >
-        🍀 COO-COO GARDEN 🍀
-      </Text>
+      <Flex w='100%' maxW='1024px' flexDir='column' p={8}>
+        <Text
+          color='white'
+          fontSize={[28, 28, 32]}
+          fontWeight='bold'
+          fontFamily='DNFBitBitTTF'
+          textAlign='center'
+          mb={2}
+        >
+          🍀 COO-COO GARDEN 🍀
+        </Text>
 
-      {!signer ? (
-        <Text
-          color='white'
-          fontSize={24}
-          fontWeight='semibold'
-          textAlign='center'
-          mt={4}
-        >
-          지갑을 연결해 주세요 :)
-        </Text>
-      ) : isLoading ? (
-        <Flex justifyContent='center' alignItems='center' height='50vh'>
-          <Spinner size='xl' color='white' />
-        </Flex>
-      ) : tokenIds.length === 0 ? (
-        <Text
-          color='white'
-          fontSize={24}
-          fontWeight='semibold'
-          textAlign='center'
-          mt={4}
-        >
-          판매중인 NFT가 없습니다 :(
-        </Text>
-      ) : (
-        <>
+        {!signer ? (
           <Text
             color='white'
-            fontSize={20}
+            fontSize={[16, 16, 20]}
             fontWeight='semibold'
             textAlign='center'
-            mt={4}
           >
-            카드를 클릭해서 상세 정보를 확인해 보세요!
+            지갑을 연결해 주세요 :)
           </Text>
-          <Grid
-            templateColumns={[
-              'repeat(1, 1fr)',
-              'repeat(2, 1fr)',
-              'repeat(3, 1fr)',
-            ]}
-            gap={8}
-            mt={4}
+        ) : isLoading ? (
+          <Flex justifyContent='center' alignItems='center' height='80vh'>
+            <Spinner size='xl' color='white' />
+          </Flex>
+        ) : tokenIds.length === 0 ? (
+          <Text
+            color='white'
+            fontSize={[16, 16, 20]}
+            fontWeight='semibold'
+            textAlign='center'
           >
-            {tokenIds.map((item, index) => (
-              <GardenNftCard
-                key={index}
-                tokenId={item}
-                signer={signer}
-                tokenIds={tokenIds}
-                setTokenIds={setTokenIds}
-              />
-            ))}
-          </Grid>
-        </>
-      )}
+            판매중인 NFT가 없습니다 :(
+          </Text>
+        ) : (
+          <>
+            <Text
+              color='white'
+              fontSize={20}
+              fontWeight='semibold'
+              textAlign='center'
+            >
+              카드를 클릭해서 상세 정보를 확인해 보세요!
+            </Text>
+
+            <Flex w='100%'>
+              <Grid
+                templateColumns={[
+                  'repeat(1, 1fr)',
+                  'repeat(2, 1fr)',
+                  'repeat(3, 1fr)',
+                ]}
+                gap={8}
+                mt={4}
+              >
+                {tokenIds.map((item, index) => (
+                  <GridItem w='100%'>
+                    <GardenNftCard
+                      key={index}
+                      tokenId={item}
+                      signer={signer}
+                      tokenIds={tokenIds}
+                      setTokenIds={setTokenIds}
+                    />
+                  </GridItem>
+                ))}
+              </Grid>
+            </Flex>
+          </>
+        )}
+      </Flex>
     </Flex>
   );
 };

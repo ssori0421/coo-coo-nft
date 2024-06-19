@@ -1,12 +1,4 @@
-import {
-  Badge,
-  Button,
-  Flex,
-  Box,
-  Image,
-  Text,
-  Divider,
-} from '@chakra-ui/react';
+import { Button, Flex, Box, Image, Text, Divider, Tag } from '@chakra-ui/react';
 import { formatEther, JsonRpcSigner } from 'ethers';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -18,13 +10,6 @@ interface IGardenNftCardProps {
   tokenIds: number[];
   setTokenIds: Dispatch<SetStateAction<number[]>>;
 }
-
-const truncateText = (text: string, maxLength: number) => {
-  if (text.length <= maxLength) {
-    return text;
-  }
-  return text.substring(0, maxLength) + '..';
-};
 
 const GardenNftCard = ({
   tokenId,
@@ -68,23 +53,20 @@ const GardenNftCard = ({
 
   if (!nftMetadata) return null;
 
-  const { image, name, description, attributes, price, tokenOwner } =
-    nftMetadata;
+  const { image, name, attributes, price, tokenOwner } = nftMetadata;
 
   return (
     <Flex flexDirection='column' alignItems='center' justifyContent='center'>
       <Box
         display='flex'
         flexDir='column'
+        h={500}
         border='3px solid'
         borderColor='white'
         boxShadow='4px 4px 6px rgba(244, 238, 238, 0.7)'
         borderRadius='12px'
-        h={680}
         bg='linear-gradient(to bottom, #9168ea, #e483db)'
-        w={400}
         p={4}
-        position='relative'
         overflow='hidden'
         onClick={() => onClickCardDetail(tokenId)}
         _hover={{
@@ -95,12 +77,7 @@ const GardenNftCard = ({
       >
         <Flex flexDirection='column' zIndex={2}>
           <Flex alignItems='center' justifyContent='space-between'>
-            <Text
-              fontSize={24}
-              variant='link'
-              fontFamily='DNFBitBitTTF'
-              color='white'
-            >
+            <Text fontSize={24} fontFamily='DNFBitBitTTF' color='white'>
               {name}
             </Text>
 
@@ -117,12 +94,11 @@ const GardenNftCard = ({
               </Button>
             ) : null}
           </Flex>
-
           <Image
             alignSelf='center'
             src={image}
             alt={name}
-            w={300}
+            w={200}
             borderRadius='50%'
             my={4}
           />
@@ -135,23 +111,24 @@ const GardenNftCard = ({
           >
             가격 : {formatEther(price)} ETH
           </Text>
-          <Divider my={3} />
-          <Text fontSize='sm' mb={4} textColor='white' fontWeight={800} px={8}>
-            {truncateText(description, 50)}
-          </Text>
-          <Flex flexWrap='wrap' justifyContent='center' mb={4}>
+          <Divider my={4} />
+
+          <Flex width='100%' flexWrap='wrap' justifyContent='center'>
             {attributes.map((attr, index) => (
-              <Badge
+              <Tag
                 key={index}
+                textAlign='center'
+                display='flex'
                 borderRadius='full'
                 px={2}
                 m={1}
-                colorScheme='purple'
+                bgColor='white'
+                fontFamily='DNFBitBitTTF'
+                color='black'
+                fontSize={12}
               >
-                <Text fontSize='sm'>
-                  {attr.trait_type}: {attr.value}
-                </Text>
-              </Badge>
+                {attr.value}
+              </Tag>
             ))}
           </Flex>
         </Flex>
