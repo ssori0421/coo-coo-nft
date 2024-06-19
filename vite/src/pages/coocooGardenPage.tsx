@@ -30,10 +30,6 @@ const CooCooGardenPage = () => {
     getOnSaleTokens();
   }, [saleContract]);
 
-  useEffect(() => {
-    console.log(tokenIds);
-  }, [tokenIds]);
-
   return (
     <Flex
       w='100%'
