@@ -10,13 +10,10 @@ const DetailWorldViewPage = () => {
   if (!data)
     return (
       <Flex
-        flexDirection='column'
-        alignItems='center'
         w='100%'
-        background='linear-gradient(to bottom, #f1856a, #ce48c1)'
-        px={20}
-        py={12}
+        alignItems='center'
         justifyContent='center'
+        background='linear-gradient(to bottom, #f1856a, #ce48c1)'
       >
         <Flex justifyContent='center' alignItems='center' height='50vh'>
           <Spinner size='xl' color='white' />
@@ -26,106 +23,85 @@ const DetailWorldViewPage = () => {
 
   const { title, src, contentTitle1, content1, contentTitle2, content2 } = data;
 
-  if (!worldViewData)
-    return (
-      <Flex
-        flexDirection='column'
-        alignItems='center'
-        w='100%'
-        background='linear-gradient(to bottom, #f1856a, #ce48c1)'
-        px={20}
-        py={12}
-        justifyContent='center'
-      >
-        <Flex justifyContent='center' alignItems='center' height='50vh'>
-          <Spinner size='xl' color='white' />
-        </Flex>
-      </Flex>
-    );
-
   return (
     <Flex
-      flexDirection='column'
-      alignItems='center'
-      py={8}
-      px={32}
       w='100%'
+      flexDir='column'
+      alignItems='center'
       background='linear-gradient(to bottom, #f1856a, #ce48c1)'
     >
-      <Text
-        color='white'
-        fontSize={[28, 32, 36]}
-        fontWeight='bold'
-        fontFamily='DNFBitBitTTF'
-        mb={4}
-      >
-        {title}
-      </Text>
-      <Box position='relative'>
-        <Image
-          src={src}
-          borderRadius={24}
-          w={800}
-          h={400}
-          objectFit='cover'
-          boxShadow='4px 4px 6px rgba(240, 232, 232, 0.7)'
+      <Flex w='100%' maxW='1024px' flexDir='column' alignItems='center' p={8}>
+        <Text
+          color='white'
+          fontSize={[28, 28, 32]}
+          fontWeight='bold'
+          fontFamily='DNFBitBitTTF'
           mb={4}
-          border='5px solid'
-          borderColor='pink'
-        />
-        <Box
-          position='absolute'
-          top={0}
-          left={0}
-          right={0}
-          bottom={4}
-          bg='rgba(255, 255, 255, 0.2)'
-          borderRadius={24}
-        />
-      </Box>
-      <Flex mt={8} flexDir='column'>
-        <Flex flexDir='column' gap={8}>
-          <Text
-            color='white'
-            fontSize={[24, 24, 28]}
-            fontWeight={600}
-            fontFamily='DNFBitBitTTF'
-            textAlign='center'
-            px={8}
-          >
-            {contentTitle1}
-          </Text>
-          <Text
-            color='white'
-            fontSize={[16, 18, 20]}
-            fontWeight={600}
-            textAlign='center'
-            px={8}
-          >
-            {content1}
-          </Text>
+        >
+          {title}
+        </Text>
+        <Box position='relative'>
+          <Image
+            src={src}
+            borderRadius={24}
+            w={800}
+            h={400}
+            objectFit='cover'
+            boxShadow='4px 4px 6px rgba(240, 232, 232, 0.7)'
+            border='5px solid'
+            borderColor='pink'
+            mb={2}
+          />
+          <Box
+            position='absolute'
+            top={0}
+            left={0}
+            right={0}
+            bottom={4}
+            bg='rgba(255, 255, 255, 0.2)'
+            borderRadius={24}
+          />
+        </Box>
+        <Flex mt={2} flexDir='column'>
+          <Flex flexDir='column' gap={2} px={8} mb={4}>
+            <Text
+              color='white'
+              fontSize={[24, 24, 28]}
+              fontWeight={400}
+              fontFamily='DNFBitBitTTF'
+              textAlign='center'
+            >
+              {contentTitle1}
+            </Text>
+            <Text
+              color='white'
+              fontSize={[16, 16, 18]}
+              fontWeight={600}
+              textAlign='center'
+            >
+              {content1}
+            </Text>
+          </Flex>
           <Divider />
-        </Flex>
-        <Flex flexDir='column' gap={8} mt={8}>
-          <Text
-            color='white'
-            fontSize={[24, 24, 28]}
-            fontWeight={600}
-            fontFamily='DNFBitBitTTF'
-            textAlign='center'
-            px={8}
-          >
-            {contentTitle2}
-          </Text>
-          <Text
-            color='white'
-            fontSize={[16, 18, 20]}
-            fontWeight={600}
-            textAlign='center'
-            px={8}
-          >
-            {content2}
-          </Text>
+          <Flex flexDir='column' gap={2} px={8} mt={4}>
+            <Text
+              color='white'
+              fontSize={[24, 24, 28]}
+              fontWeight={400}
+              fontFamily='DNFBitBitTTF'
+              textAlign='center'
+            >
+              {contentTitle2}
+            </Text>
+            <Text
+              color='white'
+              fontSize={[16, 16, 18]}
+              fontWeight={600}
+              textAlign='center'
+            >
+              {content2}
+            </Text>
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
