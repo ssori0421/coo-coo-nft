@@ -1,5 +1,4 @@
 import {
-  Badge,
   Button,
   Divider,
   Flex,
@@ -98,31 +97,11 @@ const MyNftCard = ({
           w={180}
           borderRadius='50%'
         />
-        <Text
-          color='white'
-          mb={2}
-          fontWeight={600}
-          fontSize={[12, 12, 14]}
-          // px={4}
-        >
+        <Text color='white' mb={2} fontWeight={600} fontSize={[12, 12, 14]}>
           {description}
         </Text>
         <Divider my={2} />
-        {/* <Flex flexWrap='wrap' justifyContent='center' mb={4}>
-          {attributes?.map((attr, index) => (
-            <Badge
-              key={index}
-              borderRadius='full'
-              px={[1, 1, 2]}
-              m={1}
-              colorScheme='purple'
-            >
-              <Text fontSize='sm'>
-                {attr.trait_type}: {attr.value}
-              </Text>
-            </Badge>
-          ))}
-        </Flex> */}
+
         <Flex width='100%' flexWrap='wrap' justifyContent='center'>
           {attributes?.map((attr, index) => (
             <Tag
@@ -154,7 +133,7 @@ const MyNftCard = ({
               판매가격 : {formatEther(currentPrice)} ETH
             </Text>
           ) : isApprovedForAll ? (
-            <Flex position='absolute' bottom={4} w='100%'>
+            <Flex position='absolute' left={3} right={3} bottom={2}>
               <InputGroup>
                 <Input
                   value={salePrice}
