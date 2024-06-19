@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { JsonRpcSigner } from 'ethers';
 import { ethers } from 'ethers';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Contract } from 'ethers';
 import {
@@ -50,35 +50,53 @@ const Header = ({
   setMintContract,
   setSaleContract,
 }: IHeaderProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const navigate = useNavigate();
 
-  const onClickConnectMetamask = async () => {
+  const getSigner = async () => {
     try {
       if (!window.ethereum) return;
 
       const provider = new ethers.BrowserProvider(window.ethereum);
 
-      console.log(await provider.getSigner());
       setSigner(await provider.getSigner());
+      localStorage.setItem('isLogedIn', 'true');
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const onClickLogOut = () => {
     setSigner(null);
+    localStorage.removeItem('isLogedIn');
   };
 
   useEffect(() => {
-    if (!signer) {
-      setMintContract(null);
-
-      return;
+    const logedIn = localStorage.getItem('isLogedIn');
+    if (logedIn === 'true') {
+      getSigner();
+    } else {
+      setIsLoading(false);
     }
+  }, []);
 
-    setMintContract(new Contract(mintContractAddress, mintContractAbi, signer));
-    setSaleContract(new Contract(saleContractAddress, saleContractAbi, signer));
+  useEffect(() => {
+    if (signer) {
+      setMintContract(
+        new Contract(mintContractAddress, mintContractAbi, signer)
+      );
+      setSaleContract(
+        new Contract(saleContractAddress, saleContractAbi, signer)
+      );
+    }
   }, [signer]);
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <Flex
@@ -134,11 +152,7 @@ const Header = ({
             </MenuList>
           </Menu>
         ) : (
-          <Button
-            color='white'
-            variant='outline'
-            onClick={onClickConnectMetamask}
-          >
+          <Button color='white' variant='outline' onClick={getSigner}>
             지갑 연결하기
           </Button>
         )}
@@ -154,11 +168,7 @@ const Header = ({
             {signer ? `${signer.address.substring(0, 7)}...` : 'menu'}
           </MenuButton>
           <MenuList border='1px, solid' borderColor='white'>
-            {!signer && (
-              <MenuItem onClick={onClickConnectMetamask}>
-                지갑 연결하기
-              </MenuItem>
-            )}
+            {!signer && <MenuItem onClick={getSigner}>지갑 연결하기</MenuItem>}
             {navLinks.map((item, id) => (
               <MenuItem key={id} onClick={() => navigate(item.path)}>
                 {item.name}
