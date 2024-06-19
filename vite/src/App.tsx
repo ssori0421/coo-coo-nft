@@ -7,6 +7,7 @@ import CooCooGardenPage from './pages/coocooGardenPage';
 import MyCoocooPage from './pages/myCoocooPage';
 import DetailNftPage from './pages/detailNftPage';
 import DetailWorldViewPage from './pages/detailWorldViewPage';
+import AdminPage from './pages/adminPage';
 
 const App: FC = () => {
   return (
@@ -19,6 +20,8 @@ const App: FC = () => {
           <Route path='/worldview/:id' element={<DetailWorldViewPage />} />
           <Route path='/coocooGarden/:tokenId' element={<DetailNftPage />} />
           <Route path='/mycoocoo' element={<MyCoocooPage />} />
+          <Route path='/mycoocoo' element={<MyCoocooPage />} />
+          <Route path='/admin' element={<AdminPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

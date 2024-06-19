@@ -35,6 +35,11 @@ const navLinks = [
     name: '마이 쿠쿠',
     path: '/myCoocoo',
   },
+  {
+    id: 4,
+    name: '관리자 페이지',
+    path: '/admin',
+  },
 ];
 
 interface IHeaderProps {
