@@ -2,15 +2,15 @@
 
 ## 1. Introduction
 
-"쿠쿠 월드"는 무지개 다리를 건너 쿠쿠월드에 도착한 기니피그들이 모험과 페스티벌을 즐기며 살아가는 세계를 배경으로 한 NFT 프로젝트입니다.
+"COO-COO-NFT"는 무지개 다리를 건너 쿠쿠월드에 도착한 기니피그들이 모험과 페스티벌을 즐기며 살아가는 세계를 배경으로 한 NFT 프로젝트입니다.
 
-기니피그의 소리를 표현하는 의성어를 합쳐 "Coo-Coo-NFT"라는 이름을 지었습니다.
+기니피그의 소리를 표현하는 의성어를 합쳐 "COO-COO-NFT"라는 이름을 지었습니다.
 
-이 프로젝트는 귀여운 캐릭터들과 독특한 스토리라인을 통해 사용자들에게 재미와 수집의 즐거움을 제공하며, 블록체인 기술을 이용해 NFT로 거래할 수 있도록 설계되었습니다.
+이 프로젝트는 귀여운 캐릭터들과 독특한 스토리라인을 통해 사용자들에게 `재미`와 `수집의 즐거움`을 제공하며, `블록체인 기술`을 이용해 NFT로 거래할 수 있도록 설계되었습니다.
 
 |                                                메인                                                |                                               세계관                                               |                                              NFT 마켓                                              | 민팅                                                                                               |
 | :------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------: | -------------------------------------------------------------------------------------------------- |
-| ![](https://velog.velcdn.com/images/ssori0421/post/95c3f26e-288d-4ad1-bc4d-9fc7dfd308b7/image.png) | ![](https://velog.velcdn.com/images/ssori0421/post/2c7c7fca-9f93-4b79-a495-b58a27d0d939/image.png) | ![](https://velog.velcdn.com/images/ssori0421/post/777cc6d1-532d-4a9f-984c-9c87f887d5ff/image.png) | ![](https://velog.velcdn.com/images/ssori0421/post/ccc89f3f-ed0e-4ddb-a8a8-dd3eaba40b90/image.png) |
+| ![](https://velog.velcdn.com/images/ssori0421/post/95c3f26e-288d-4ad1-bc4d-9fc7dfd308b7/image.png) | ![](https://velog.velcdn.com/images/ssori0421/post/9686cdba-263f-4aec-8f88-ea811c0fc35b/image.png) | ![](https://velog.velcdn.com/images/ssori0421/post/777cc6d1-532d-4a9f-984c-9c87f887d5ff/image.png) | ![](https://velog.velcdn.com/images/ssori0421/post/ccc89f3f-ed0e-4ddb-a8a8-dd3eaba40b90/image.png) |
 
 ## 2. Deploy
 
@@ -69,14 +69,14 @@
 ✅ **COOCOO GARDEN**
 
 - COO-COO NFT 마켓페이지 입니다.
-- 민팅되어있는 `전체 NFT`를 보여주며, 사용자의 해당 NFT 소유 유무를 판별하여 구매 버튼을 활성/비활성 상태를 나타냅니다.
+- 민팅되어있는 `전체 NFT`를 보여주며, 사용자의 해당 NFT 소유 유무를 판별하여 구매 버튼을 `활성/비활성` 상태를 나타냅니다.
 - 카드를 클릭하면 해당 NFT에 대한 `상세 정보`를 확인할 수 있습니다.
 
 ✅ **MY COOCOO**
 
 - 사용자가 `구매한 COO-COO NFT`를 보여주는 마이페이지 입니다.
 - 한 화면에 3개의 NFT 카드를 보여주며 화살표 버튼을 클릭하면 `슬라이드` 형식으로 다음 NFT 카드들을 보여줍니다.
-- 처음 NFT 카드/마지막 NFT 카드의 경우 각각 슬라이드 버튼을 비활성화해서 해당 동작이 수행되지 않음을 표시하였습니다.
+- 처음 NFT 카드/마지막 NFT 카드의 경우 각각 슬라이드 버튼을 `비활성화`해서 해당 동작이 수행되지 않음을 표시하였습니다.
 
 ✅ **ADMIN**
 
@@ -128,11 +128,8 @@
 # 레포지토리 클론
 git clone https://github.com/ssori0421/coo-coo-nft
 
-# Vite 설정
+# Vite 설정 및 실행
 cd vite
 npm install
 npm run dev
-
-# 실행
-npm run build 후에 npm start
 ```
