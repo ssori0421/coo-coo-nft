@@ -1,13 +1,4 @@
-import {
-  Button,
-  Flex,
-  Text,
-  useDisclosure,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-} from '@chakra-ui/react';
+import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
@@ -18,7 +9,7 @@ import { INftMetadata } from '../types/metadata';
 const AdminPage = () => {
   const [nftMetadata, setNftMetadata] = useState<INftMetadata | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState<boolean>(false); // State to control showing the modal
+  const [isUnauthorized, setIsUnauthorized] = useState<boolean>(false); // State to control unauthorized access
 
   const { mintContract, signer } = useOutletContext<IOutletContext>();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -52,16 +43,52 @@ const AdminPage = () => {
       !signer ||
       signer.address !== '0xfBa9972055C1FC1bE7cB2e2e783328725b04ede2'
     ) {
-      setShowModal(true);
+      setIsUnauthorized(true);
       setTimeout(() => {
         navigate('/');
       }, 2000);
     }
   }, [signer, navigate]);
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+  if (isUnauthorized) {
+    return (
+      <Flex
+        w='100%'
+        flexDir='column'
+        justifyContent='center'
+        alignItems='center'
+        background='linear-gradient(to bottom, #f1856a, #ce48c1)'
+      >
+        <Text
+          color='white'
+          fontSize={[28, 28, 32]}
+          fontWeight='bold'
+          fontFamily='DNFBitBitTTF'
+          textAlign='center'
+          mb={2}
+        >
+          🚫 접근 금지 🚫
+        </Text>
+        <Text
+          color='white'
+          fontSize={[20, 20, 24]}
+          fontFamily='DNFBitBitTTF'
+          textAlign='center'
+        >
+          이 페이지는 관리자만 접근할 수 있습니다.
+        </Text>
+        <Text
+          color='white'
+          fontSize={[16, 16, 18]}
+          fontFamily='DNFBitBitTTF'
+          textAlign='center'
+          mt={4}
+        >
+          잠시 후 메인 페이지로 이동합니다..
+        </Text>
+      </Flex>
+    );
+  }
 
   return (
     <Flex
@@ -109,18 +136,6 @@ const AdminPage = () => {
           nftMetadata={nftMetadata}
         />
       </Flex>
-      <Modal
-        isOpen={showModal}
-        onClose={handleCloseModal}
-        isCentered
-        blockScrollOnMount
-        closeOnOverlayClick={false}
-      >
-        <ModalContent display='flex' alignItems='center'>
-          <ModalHeader>관리자만 접근할 수 있는 페이지입니다.</ModalHeader>
-          <ModalBody>잠시 후 메인 페이지로 이동합니다...</ModalBody>
-        </ModalContent>
-      </Modal>
     </Flex>
   );
 };
